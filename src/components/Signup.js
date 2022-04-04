@@ -4,7 +4,7 @@ import './Signup.css'
 function Signup() {
     const jump_to_login = function() {
             <div>
-                <Login/>
+                <Login/>;
             </div>
     }
 
