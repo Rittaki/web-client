@@ -1,5 +1,6 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
+import Users from './Users';
 
 function Login() {
 
@@ -24,12 +25,11 @@ function Login() {
             userList.map((item)=>compare(item));
             if(!isFound){
               setIsSubmit(false);
-
             }
         }
     })
     function compare(item){
-        if(item.userName===userName){
+        if(item.userName===username){
             if(item.password===password){
                 setIsFound(true);
             }

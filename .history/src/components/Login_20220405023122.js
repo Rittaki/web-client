@@ -1,5 +1,6 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
+import Users from './Users';
 
 function Login() {
 
@@ -23,14 +24,13 @@ function Login() {
         if(isSubmit){
             userList.map((item)=>compare(item));
             if(!isFound){
-              setIsSubmit(false);
-
+                props.setIsSubmit(false);
             }
         }
     })
     function compare(item){
-        if(item.userName===userName){
-            if(item.password===password){
+        if(item.userName===props.checkName){
+            if(item.password===props.checkPassword){
                 setIsFound(true);
             }
         }

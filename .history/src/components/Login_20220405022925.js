@@ -1,5 +1,6 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
+import Users from './Users';
 
 function Login() {
 
@@ -10,30 +11,13 @@ function Login() {
     ]
     const [userName , setUserName] =useState("")
     const [password , setPassword] =useState("")
-    const[isSubmit, setIsSubmit] = useState(false);
-    const[isFound, setIsFound] = useState(false);
+const[isSubmit, setIsSubmit] = useState(false);
+const[isFound, setIsFound] = useState(false);
 
 
     const sunbmitFun = (e) => {
         e.preventDefault();
         setIsSubmit(true);
-    }
-
-    useEffect(()=>{
-        if(isSubmit){
-            userList.map((item)=>compare(item));
-            if(!isFound){
-              setIsSubmit(false);
-
-            }
-        }
-    })
-    function compare(item){
-        if(item.userName===userName){
-            if(item.password===password){
-                setIsFound(true);
-            }
-        }
     }
 
 
@@ -57,6 +41,7 @@ function Login() {
                             <div className="mt-3 text-center">
                                 Not Registered? <a href="/Signup" className="text-dark fw-bold" > Create an Account</a>
                             </div>
+                            <Users checkName={userName} checkPassword={password} submit={isSubmit} setIsFound={setIsFound} setIsSubmit={setIsSubmit} />
                         </form>
                     </div>
                 </div>
