@@ -2,41 +2,25 @@ import './Login.css';
 import { useState, useEffect } from 'react';
 
 function Login() {
-
-
     const userList = [
         {userName : "daniel" , nickName: "Daniel" , picture : " " , password: "123"},,
         {userName : "rita" , nickName: "rita" , picture : " " , password: "789"},
     ]
     const [userName , setUserName] =useState("")
     const [password , setPassword] =useState("")
-    const[isSubmit, setIsSubmit] = useState(false);
     const[isFound, setIsFound] = useState(false);
 
 
     const sunbmitFun = (e) => {
         e.preventDefault();
-        setIsSubmit(true);
+        userList.map((item)=>compare(item));
     }
 
-    useEffect(()=>{
-        if(isSubmit){
-            userList.map((item)=>compare(item));
-            if(!isFound){
-              setIsSubmit(false);
-
-            }
-        }
-    })
     function compare(item){
-        if(item.userName===userName){
-            if(item.password===password){
+        if(item.userName===userName && item.password===password ){
                 setIsFound(true);
-            }
         }
     }
-
-
     return (
         <div className="container-fluid">
             <div className="row">
