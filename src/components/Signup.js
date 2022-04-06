@@ -1,17 +1,16 @@
-import Login from './Login'
 import './Signup.css'
 
 function Signup() {
-    const jump_to_login = function() {
-            <div>
-                <Login/>;
-            </div>
-    }
+    // const jump_to_login = function() {
+    //         <div>
+    //             <Login/>;
+    //         </div>
+    // }
 
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-4 col-sm-4 col-xs-12"></div>
+                <div className="col-md-3 col-sm-4 col-xs-12"></div>
                 <div className="col-md-4 col-sm-4 col-xs-12">
                     <div className="mt-20">
                         <form className="form-container">
@@ -30,7 +29,7 @@ function Signup() {
                                 <button className="btn btn-lg btn-primary btn-block">Sign in</button>
                             </div>
                             <div className="mt-3 text-center">
-                                Already have an account? <a href="/" onClick={jump_to_login} className="text-dark fw-bold"> Login</a>
+                                Already have an account? <a href="/" className="text-dark fw-bold"> Login</a>
                             </div>
                         </form>
                     </div>
