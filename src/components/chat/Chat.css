@@ -1,0 +1,74 @@
+* { background-color: gainsboro; }
+.btn-lg {
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    width: 100%; 
+}
+.mt-20 {
+    margin-top: 20% !important;
+}
+.form-container {
+    width: auto;
+    border: 1px solid;
+    padding: 0;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.75);
+}
+
+.container-fluid {
+    margin: 70px !important;
+}
+.m-70 {
+    margin: 70px !important;
+}
+.profile-image {
+    background: #eee;
+    width: 50px;
+}
+.profile-panel {
+    background: #eee;
+    padding: 10px 15px;
+    border-radius: 7px;
+}
+.bi-person-plus {
+    font-size: 25px;
+    background: #eee;
+    padding-top: 5px;
+    padding-right: 10px;
+    transition: .2s;
+}
+.add-contact:hover {
+    color: grey;
+    cursor: pointer;
+}
+.search-box {
+    background: #fafafa;
+    padding: 10px 13px;
+}
+.input-wrapper {
+    background: #fff;
+    border-radius: 10px;
+}
+.bi-search {
+    background: #fff;
+    color: grey;
+    font-size: large;
+}
+input {
+    background: #fff;
+    width: 96%;
+    border: none;
+    border-radius: 10px;
+}
+input::placeholder {
+    color: rgb(167, 167, 167);
+    font-weight: 350;
+    margin-left: 20px;
+    padding-left: 10px;
+}
+input:focus {
+    outline: none;
+}
