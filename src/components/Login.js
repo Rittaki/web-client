@@ -1,6 +1,8 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
-import Signup from './Signup';
+import Chat from './chat/Chat';
+import { useNavigate } from "react-router-dom";
+
 
 export default function Login() {
     const userList = [
@@ -13,7 +15,7 @@ export default function Login() {
     const[isFound, setIsFound] = useState(false);
     const[isSubmit, setIsSubmit]=useState(false);
     const[isRedirect, setIsRedirect]=useState(false);
-
+    let navigate = useNavigate();
     
     const sunbmitFun = (e) => {
         e.preventDefault();
@@ -50,7 +52,8 @@ export default function Login() {
     },[errors]);
 
     if(isRedirect){
-        return <Signup/>;
+        navigate(`/chat`)
+        return <Chat/> 
     }
     return (
         <div className="container-fluid">
