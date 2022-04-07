@@ -27,6 +27,7 @@
 .profile-image {
     background: #eee;
     width: 50px;
+    height: 50px;
 }
 .profile-panel {
     background: #eee;
@@ -39,6 +40,14 @@
     padding-top: 5px;
     padding-right: 10px;
     transition: .2s;
+}
+.profile-name {
+    background: #eee;
+    padding: 15px;
+    font-size: large;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    vertical-align: middle;
 }
 .add-contact:hover {
     color: grey;
@@ -59,7 +68,7 @@
 }
 input {
     background: #fff;
-    width: 96%;
+    width: 80%;
     border: none;
     border-radius: 10px;
 }
@@ -71,4 +80,75 @@ input::placeholder {
 }
 input:focus {
     outline: none;
+}
+.contacts-image {
+    width: 50px;
+    height: 50px;
+    background: white;
+}
+.contacts {
+    display: flex;
+    padding: 10px 15px;
+    vertical-align: baseline;
+    background: white;  
+}
+.message {
+    margin-left: 12px;
+    width: 70%;
+    background: white;
+}
+.contact-name {
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    vertical-align: middle;
+    margin-top: 2px;
+    margin-bottom: 0;
+    background: white;
+}
+.text-muted {
+    background: white;
+    margin: 0;
+}
+.contacts:hover .contact-name {
+    background: rgb(203, 240, 255);
+    cursor: pointer;
+    transition: .3s ease; 
+}
+.contacts:hover img{
+    background: rgb(203, 240, 255);
+    cursor: pointer;
+    transition: .3s ease; 
+}
+.contacts:hover .message{
+    background: rgb(203, 240, 255);
+    cursor: pointer;
+    transition: .3s ease; 
+}
+.contacts:hover .text-muted {
+    background: rgb(203, 240, 255);
+    cursor: pointer;
+    transition: .3s ease; 
+}
+div:hover.contacts {
+    background: rgb(203, 240, 255);
+    cursor: pointer;
+    transition: .3s ease; 
+}
+hr {
+    margin: 5px auto;
+    width: 80%;  
+}
+.col-md-4.contacts-colomn {
+    margin-left: 20px;
+    padding: 0;
+    background: white;
+    border-radius: 7px;
+    padding-bottom: 20px;
+}
+.col-md-8.chat-colomn {
+    padding: 0;
+    width: 60%;
+}
+.container-fluid.chat {
+    width: 95%;
 }
