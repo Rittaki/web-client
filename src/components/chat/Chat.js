@@ -1,10 +1,11 @@
 import './Chat.css';
 
 function Chat() {
-    return (
+    return (    
         <div className="container-fluid chat">
-            <div className="row">
-                <div className="col-md-4 contacts-colomn">
+            <div className="row chat">
+            
+                <div className="col-md-5 contacts-colomn">
                     <div className="profile-panel">
                         <img className="profile-image" src="./images/cat.png" alt="icon"></img>
                         <span className="profile-name">Rita</span>
@@ -63,17 +64,22 @@ function Chat() {
                         </div>
                         <span className="time text-muted small">1 minute ago</span>
                     </div>
-
+                    
                 </div>
-                <div className="col-md-8 chat-colomn">
 
-                    <div className="chat-panel profile-panel">
-                        <img className="profile-image" src="./images/cat1.png" alt="icon"></img>
-                    </div>
-
+                <div className="col-md-7 chat-colomn" >
+                <div className="select-text">Select a chat to start messaging</div>                    
+                    {/*<div className="current-contact">
+                        <img className="profile-image" src="./images/cat4.png" alt="icon"></img>
+                        <div className="text">
+                            <h6 className="contact-name">Alice</h6>
+                            <p className="text-muted quote">Throw kindness around like confetti</p>
+                        </div>     
+                    </div>*/}
                 </div>
             </div>
-        </div>
+            </div>
+        
     );
 }
 
