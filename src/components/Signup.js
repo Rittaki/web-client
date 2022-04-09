@@ -1,5 +1,6 @@
 import './Signup.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Login from "./Login"
 
 function Signup() {
     const [username , setUsername] =useState("");
