@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './Chat.css';
 import { Modal, Button } from 'react-bootstrap';
 import AddNewContact from './addContact/AddNewContact';
+import ChatMessages from './chatMessages/ChatMessages';
 
 function Chat() {
     const contact_chat = [{ name: "Daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
@@ -76,14 +77,10 @@ function Chat() {
                 </Modal>
 
                 <div className="col-md-7 chat-colomn" >
-                    <div className="select-text">Select a chat to start messaging</div>
-                    {/*<div className="current-contact">
-                        <img className="profile-image" src="./images/cat4.png" alt="icon"></img>
-                        <div className="text">
-                            <h6 className="contact-name">Alice</h6>
-                            <p className="text-muted quote">Throw kindness around like confetti</p>
-                        </div>     
-                    </div>*/}
+                
+                    {/*<ChatMessages/>*/} 
+
+                    {/*<div className="select-text">Select a chat to start messaging</div>*/}
                 </div>
             </div>
         </div>
