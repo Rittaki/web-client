@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Chat.css';
 import { Modal, Button } from 'react-bootstrap';
 import AddNewContact from './addContact/AddNewContact';
@@ -9,18 +9,28 @@ function Chat() {
     { name: "Moshe", message: "Hey, have you seen the news?", image: "./images/cat2.png" },
     { name: "Sara", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
     { name: "Alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat4.png" },
-    { name: "Bob", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
+    { name: "Bob", message: "Hey, have you seen the news?", image: "./images/cat7.png" },
+    { name: "eden", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
+    const [selectedContact , SetSelectedContact] =useState("");
+    const [selectedImg , SetSelectedImg] =useState("");
+
+    const handleClick=(userName,img)=>{
+        SetSelectedContact(userName);
+        SetSelectedImg(img);
+    }
 
     const chatList = contact_chat.map((contact, key) => {
         return (
             <div className="contacts-map">
-                <div className="contacts">
-                    <img className="contacts-image" src={contact.image} alt="icon"></img>
-                    <div className="message">
-                        <h6 className="contact-name">{contact.name}</h6>
-                        <p className="text-muted">{contact.message}</p>
+                <div className={(selectedContact===contact.name)?"selected-contact":"contacts"}
+                onClick={() => handleClick(contact.name,contact.image)}>
+                    <img className={(selectedContact===contact.name)?"selected-contacts-image":"contacts-image"}
+                     src={contact.image} alt="icon"></img>
+                    <div className={(selectedContact===contact.name)?"selected-message":"message"}>
+                        <h6 className={(selectedContact===contact.name)?"selected-contact-name":"contact-name"}>{contact.name}</h6>
+                        <p className={(selectedContact===contact.name)?"selected-text-muted":"text-muted"}>{contact.message}</p>
                     </div>
-                    <span className="time text-muted small">1 minute ago</span>
+                    <span className="time-text-muted-small">1 minute ago</span>
                 </div>
                 <hr />
             </div>
@@ -39,7 +49,6 @@ function Chat() {
     return (
         <div className="container-fluid chat">
             <div className="row chat">
-
                 <div className="col-md-5 contacts-colomn">
                     <div className="profile-panel">
                         <img className="profile-image" src="./images/cat.png" alt="icon"></img>
@@ -54,7 +63,10 @@ function Chat() {
                             <input type="text" placeholder="Search chat"></input>
                         </div>
                     </div>
-                    {chatList}
+                    <div className='contacts-container'>
+                        {chatList}
+                    </div>
+
                 </div>
 
                 <Modal show={show} style={modelStyle} onHide={handleClose}>
@@ -77,7 +89,7 @@ function Chat() {
                 </Modal>
 
                 <div className="col-md-7 chat-colomn" >
-                
+                {(selectedContact)? (<ChatMessages name={selectedContact} img={selectedImg}/>):<div></div>}
                     {/*<ChatMessages/>*/} 
 
                     {/*<div className="select-text">Select a chat to start messaging</div>*/}

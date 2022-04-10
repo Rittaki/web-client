@@ -1,12 +1,12 @@
 import "./ChatMessages.css";
 
-export default function ChatMessages() {
+export default function ChatMessages(props) {
     return (
         <div>
             <div className="current-contact">
-                <img className="profile-image" src="./images/cat4.png" alt="icon"></img>
+                <img className="profile-image" src={props.img} alt="icon"></img>
                 <span className="text">
-                    <h6 className="contact-name">Alice</h6>
+                    <h6 className="contact-name">{props.name}</h6>
                     <p className="text-muted quote">Throw kindness around like confetti</p>
                 </span>
             </div>

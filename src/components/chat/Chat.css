@@ -85,16 +85,33 @@ input:focus {
     height: 50px;
     background: white;
 }
+.selected-contacts-image {
+    width: 50px;
+    height: 50px;
+    background: palegreen;
+}
 .contacts {
     display: flex;
     padding: 10px 15px;
     vertical-align: baseline;
     background: white;  
 }
+
+.selected-contact{
+    display: flex;
+    padding: 10px 15px;
+    vertical-align: baseline;
+    background: palegreen !important;  
+}
 .message {
     margin-left: 12px;
     width: 70%;
     background: white;
+}
+.selected-message{
+    margin-left: 12px;
+    width: 70%;
+    background: palegreen;
 }
 .contact-name {
     font-size: large;
@@ -104,11 +121,22 @@ input:focus {
     margin-bottom: 0;
     background: white;
 }
+.selected-contact-name{
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    vertical-align: middle;
+    margin-top: 2px;
+    margin-bottom: 0;
+    background: palegreen; 
+}
 .text-muted {
     background: white;
     margin: 0;
 }
-.contacts:hover .contact-name {
+.selected-text-muted{
+    background: palegreen;
+    margin: 0;
+}.contacts:hover .contact-name {
     background: rgb(203, 240, 255);
     cursor: pointer;
     transition: .3s ease; 
@@ -202,4 +230,9 @@ div.container-fluid.chat {
     border-radius: 10px;
     background: rgba(128, 128, 128, 0.5);
     color: white;
+}
+.contacts-container{
+    overflow-y: scroll;
+    max-height: 70vh;
+    direction: ltr;
 }
