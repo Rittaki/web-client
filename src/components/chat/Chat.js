@@ -1,4 +1,8 @@
+import { useState } from 'react';
 import './Chat.css';
+import { Modal, Button } from 'react-bootstrap';
+import AddNewContact from './addContact/AddNewContact';
+import ChatMessages from './chatMessages/ChatMessages';
 
 function Chat() {
     const contact_chat = [{ name: "Daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
@@ -9,19 +13,28 @@ function Chat() {
 
     const chatList = contact_chat.map((contact, key) => {
         return (
-        <div className="contacts-map">
-            <div className="contacts">
-                <img className="contacts-image" src={contact.image} alt="icon"></img>
-                <div className="message">
-                    <h6 className="contact-name">{contact.name}</h6>
-                    <p className="text-muted">{contact.message}</p>
+            <div className="contacts-map">
+                <div className="contacts">
+                    <img className="contacts-image" src={contact.image} alt="icon"></img>
+                    <div className="message">
+                        <h6 className="contact-name">{contact.name}</h6>
+                        <p className="text-muted">{contact.message}</p>
+                    </div>
+                    <span className="time text-muted small">1 minute ago</span>
                 </div>
-                <span className="time text-muted small">1 minute ago</span>
+                <hr />
             </div>
-            <hr />
-        </div>
         )
     });
+
+    let modelStyle = {
+        padding: '10%',
+        display: 'block',
+    }
+
+    const [show, setShow] = useState(false);
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
 
     return (
         <div className="container-fluid chat">
@@ -31,7 +44,7 @@ function Chat() {
                     <div className="profile-panel">
                         <img className="profile-image" src="./images/cat.png" alt="icon"></img>
                         <span className="profile-name">Rita</span>
-                        <span className="add-contact">
+                        <span className="add-contact" onClick={handleShow}>
                             <i className="bi bi-person-plus float-end"></i>
                         </span>
                     </div>
@@ -42,19 +55,32 @@ function Chat() {
                         </div>
                     </div>
                     {chatList}
-                    
-
                 </div>
 
+                <Modal show={show} style={modelStyle} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            Add new contact
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <AddNewContact />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={handleClose}>
+                            Add Contact
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
                 <div className="col-md-7 chat-colomn" >
-                    <div className="select-text">Select a chat to start messaging</div>
-                    {/*<div className="current-contact">
-                        <img className="profile-image" src="./images/cat4.png" alt="icon"></img>
-                        <div className="text">
-                            <h6 className="contact-name">Alice</h6>
-                            <p className="text-muted quote">Throw kindness around like confetti</p>
-                        </div>     
-                    </div>*/}
+                
+                    {/*<ChatMessages/>*/} 
+
+                    {/*<div className="select-text">Select a chat to start messaging</div>*/}
                 </div>
             </div>
         </div>
