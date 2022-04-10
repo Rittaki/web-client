@@ -1,7 +1,7 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
 import Chat from './chat/Chat';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 export default function Login() {
@@ -76,7 +76,7 @@ export default function Login() {
                                 <button className="btn btn-lg btn-primary btn-block"  >Log in</button>
                             </div>
                             <div className="mt-3 text-center">
-                                Not Registered? <a href="/Signup" className="text-dark fw-bold" > Create an Account</a>
+                                Not Registered? <Link to="/Signup" className="text-dark fw-bold" > Create an Account</Link>
                             </div>
                         </form>
                     </div>

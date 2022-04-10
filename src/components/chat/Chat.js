@@ -11,10 +11,10 @@ function Chat() {
     { name: "Alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat4.png" },
     { name: "Bob", message: "Hey, have you seen the news?", image: "./images/cat7.png" },
     { name: "eden", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
-    const [selectedContact , SetSelectedContact] =useState("");
-    const [selectedImg , SetSelectedImg] =useState("");
+    const [selectedContact, SetSelectedContact] = useState("");
+    const [selectedImg, SetSelectedImg] = useState("");
 
-    const handleClick=(userName,img)=>{
+    const handleClick = (userName, img) => {
         SetSelectedContact(userName);
         SetSelectedImg(img);
     }
@@ -22,13 +22,13 @@ function Chat() {
     const chatList = contact_chat.map((contact, key) => {
         return (
             <div className="contacts-map">
-                <div className={(selectedContact===contact.name)?"selected-contact":"contacts"}
-                onClick={() => handleClick(contact.name,contact.image)}>
-                    <img className={(selectedContact===contact.name)?"selected-contacts-image":"contacts-image"}
-                     src={contact.image} alt="icon"></img>
-                    <div className={(selectedContact===contact.name)?"selected-message":"message"}>
-                        <h6 className={(selectedContact===contact.name)?"selected-contact-name":"contact-name"}>{contact.name}</h6>
-                        <p className={(selectedContact===contact.name)?"selected-text-muted":"text-muted"}>{contact.message}</p>
+                <div className={(selectedContact === contact.name) ? "selected-contact" : "contacts"}
+                    onClick={() => handleClick(contact.name, contact.image)}>
+                    <img className={(selectedContact === contact.name) ? "selected-contacts-image" : "contacts-image"}
+                        src={contact.image} alt="icon"></img>
+                    <div className={(selectedContact === contact.name) ? "selected-message" : "message"}>
+                        <h6 className={(selectedContact === contact.name) ? "selected-contact-name" : "contact-name"}>{contact.name}</h6>
+                        <p className={(selectedContact === contact.name) ? "selected-text-muted" : "text-muted"}>{contact.message}</p>
                     </div>
                     <span className="time-text-muted-small">1 minute ago</span>
                 </div>
@@ -89,10 +89,9 @@ function Chat() {
                 </Modal>
 
                 <div className="col-md-7 chat-colomn" >
-                {(selectedContact)? (<ChatMessages name={selectedContact} img={selectedImg}/>):<div></div>}
-                    {/*<ChatMessages/>*/} 
 
-                    {/*<div className="select-text">Select a chat to start messaging</div>*/}
+                    {(selectedContact) ? (<ChatMessages name={selectedContact} img={selectedImg} />)
+                        : <div className="select-text">Select a chat to start messaging</div>}
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import './Signup.css'
 import { useState } from 'react';
+import { Link } from 'react-router-dom'
 import Login from "./Login"
 
 function Signup() {
@@ -97,7 +98,7 @@ function Signup() {
                             <button className="btn btn-lg btn-primary btn-block">Create account</button>
                         </div>
                         <div className="mt-3 text-center">
-                            Already have an account? <a href="/" onClick={ jump_to_login} className="text-dark fw-bold"> Login</a>
+                            Already have an account? <Link to="/" className="text-dark fw-bold"> Login</Link>
                         </div>
                         </form>
                     </div>

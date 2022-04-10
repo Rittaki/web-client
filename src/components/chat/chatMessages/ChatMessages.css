@@ -1,7 +1,7 @@
 .chat-bubble {
     padding: 10px 14px;
     background: #eee;
-    margin: 10px 20px;
+    margin: 10px 30px;
     width: max-content;
     border-radius: 9px;
     position: relative;
@@ -19,9 +19,71 @@
     margin-top: -10px;
 }
 
-.chat-bubble.--left::after {
+.chat-bubble--left::after {
     left: 0;
     border-right-color: #eee;
     border-left: 0;
     margin-left: -20px;
+}
+.chat-bubble--right {
+    background:rgb(203, 240, 255);
+    color: #fff;
+}
+.chat-bubble--right::after {
+    right: 0;
+    border-left-color: rgb(203, 240, 255);
+    border-right: 0;
+    margin-right: -20px;
+}
+
+.offset-md-9 {
+    direction: rtl;
+}
+.row.right {
+    vertical-align: middle;
+    display: flexbox;
+}
+
+.chat-panel {
+    display: inherit;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 55vh;
+}
+.chat-panel > * .text-muted {
+    background: #eee;
+}
+.chat-panel > * .time {
+    font-size:x-small;
+}
+
+.chat-bubble--right > .text-muted {
+    background:rgb(203, 240, 255);
+    direction: ltr;
+}
+.chat-bubble--right > .time {
+    font-size: x-small;
+}
+.bi-paperclip {
+    font-size: x-large;
+}
+.bi-send{
+    font-size: x-large;
+}
+.new-message-panel {
+    background: #eee;
+    display: flex;
+    padding: 10px 15px;
+    align-items: center;
+    bottom: 0;
+}
+.new-message-panel input {
+    margin: 0 10px;
+    padding: 6px 2px;
+}
+.new-message-panel i {
+    vertical-align: middle;
+}
+.input-message {
+    width: 100%;
 }
