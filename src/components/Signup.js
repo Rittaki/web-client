@@ -1,7 +1,7 @@
 import './Signup.css'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import Login from "./Login"
+import { userList } from './Login';
 
 function Signup() {
     const [username , setUsername] =useState("");
@@ -11,7 +11,7 @@ function Signup() {
     const [picture, SetPicture]=useState("blank.png");
     const[errors, setErrors ]=useState({})
     const[isSubmit, setIsSubmit]=useState(false);
-
+    const[isTakenUsername, setIsTakenUsername]=useState(false);
 
     const sunbmitFun = (e) => {
         e.preventDefault();
@@ -29,6 +29,9 @@ function Signup() {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
         if(!username){
             errors.username = "Username is required";
+        }
+        else{
+            userList.map((item)=>compareUserList(item,errors));
         }
         if(!nickname){
             errors.nickname = "nickname is required";
@@ -51,6 +54,13 @@ function Signup() {
         return errors;
 
     };
+
+
+    function compareUserList(item,errors){
+        if(item.userName===username){
+            errors.username="Username is taken"
+        }
+    }
 
     return (
         <div className="container-fluid">
