@@ -87,3 +87,7 @@
 .input-message {
     width: 100%;
 }
+.send-message:hover {
+    color: grey;
+    cursor: pointer;
+}

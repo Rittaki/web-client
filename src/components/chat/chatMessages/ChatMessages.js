@@ -1,6 +1,12 @@
+import { useState, useRef, useEffect } from "react";
 import "./ChatMessages.css";
 
 export default function ChatMessages(props) {
+    const containerRef = useRef(null);
+
+    const [message, setMessage] = useState('');
+    const [send, setSend] = useState(false);
+    const handleSend = () => setSend(true);
 
     const chat_messages = [{ from: "me", message: "Hey, whats up?" },
     { from: "not", message: "Hey, have you seen the news?" },
@@ -9,6 +15,29 @@ export default function ChatMessages(props) {
     { from: "me", message: "Yes, sure!" },
     { from: "not", message: "Cool, see you!" },
     { from: "not", message: "Don't forget to bring the present!" }];
+
+    useEffect(() => {
+
+        if (containerRef && containerRef.current) {
+            const element = containerRef.current;
+            element.scroll({
+                top: element.scrollHeight,
+                left: 0,
+                behavior: "smooth"
+            })
+        }
+
+    }, [containerRef, chat_messages])
+
+    const showItem = () => { // We activate this function when we got onClick on the "send icon"
+        let item = { from: "me", message: message }; // Here we put our new item that we got from input
+        chat_messages[chat_messages.length] = item;
+    }
+
+    if (send) {
+        showItem(); // We activate like this
+    }
+
 
     const messagesList = chat_messages.map((contact, key) => {
         if (contact.from === "me") {
@@ -51,7 +80,7 @@ export default function ChatMessages(props) {
             </div>
 
 
-            <div className="chat-panel">
+            <div className="chat-panel" ref={containerRef}>
                 {messagesList}
             </div>
             <div className="row">
@@ -60,11 +89,12 @@ export default function ChatMessages(props) {
                         <span>
                             <i className="bi bi-paperclip "></i>
                         </span>
-                        <input className="input-message" type={'text'} placeholder={'Write a message'}></input>
-                        <span>
+                        <input className="input-message" type={'text'} placeholder={'Write a message'}
+                            onChange={(e) => setMessage(e.target.value)}>
+                        </input>
+                        <span className="send-message" onClick={handleSend}>
                             <i className="bi bi-send float-end"></i>
                         </span>
-
                     </div>
                 </div>
             </div>
