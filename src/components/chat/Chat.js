@@ -10,8 +10,7 @@ function Chat() {
     { name: "Moshe", message: "Hey, have you seen the news?", image: "./images/cat2.png" },
     { name: "Sara", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
     { name: "Alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat4.png" },
-    { name: "Bob", message: "Hey, have you seen the news?", image: "./images/cat7.png" },
-    { name: "eden", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
+    { name: "Bob", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
     const [selectedContact, SetSelectedContact] = useState("");
     const [selectedImg, SetSelectedImg] = useState("");
     const[search, setSearch]=useState("");
@@ -21,8 +20,6 @@ function Chat() {
     const[newContactError,setNewContactError]=useState("");
     const [show, setShow] = useState(false);
     const[addContactSubmit,setAddContactSubmit]=useState(false);
-
-
 
 
     const filteredData = contact_chat.filter((contact) => {
@@ -77,10 +74,12 @@ function Chat() {
         setIsContact(false);
         if(newContact===""){
             setNewContactError("new contact username is required");
+            setAddContactSubmit(false);
         }
         //change to login username.......
         else if(newContact==="Rita"){
             setNewContactError("can't add yourself as contact");
+            setAddContactSubmit(false);
         }
         else{
             userList.map((item)=>compareUserList(item));
@@ -91,15 +90,14 @@ function Chat() {
     useEffect(()=>{
         if(addContactSubmit && !inDatabase){
             setNewContactError("can't find user");
-            
         }
         else if(addContactSubmit && isContact){
-                setNewContactError("user is already contact");
+            setNewContactError("user is already contact");
         }
-        else if(addContactSubmit && isContact && inDatabase){
+        else if(addContactSubmit && !isContact && inDatabase){
             setNewContactError("add");
         }
-    },[inDatabase,isContact]);
+    },[addContactSubmit,isContact,inDatabase]);
 
 
     function compareUserList(item){
