@@ -5,10 +5,6 @@ import { useNavigate, Link } from "react-router-dom";
 
 
 export default function Login() {
-    const userList = [
-        {userName : "daniel" , nickName: "Daniel" , picture : " " , password: "123"},,
-        {userName : "rita" , nickName: "rita" , picture : " " , password: "789"},
-    ]
     const [userName , setUserName] =useState("");
     const [password , setPassword] =useState("");
     const[errors, setErrors ]=useState({})
@@ -65,7 +61,7 @@ export default function Login() {
                             <h1>Login</h1>
                             <div className="form-group mt-3">
                                 <label htmlFor="user" className="sr-only">Username</label>
-                                <input type="text" id="user" className="form-control mt-1" placeholder="Username"  onChange={(e)=>setUserName(e.target.value)}/>
+                                <input type="text" id="user" className="form-control mt-1" placeholder="Username" onChange={(e)=>setUserName(e.target.value)}/>
                             </div>
                             <p className="error">{errors.userName}</p>
                             <label htmlFor="password" className="sr-only">Password</label>
@@ -85,3 +81,12 @@ export default function Login() {
         </div>
     );
 }
+export const userList = [
+    {userName : "Daniel" , nickName: "Daniel" , picture : " " , password: "123"},,
+    {userName : "Rita" , nickName: "rita" , picture : " " , password: "789"},
+    {userName : "Moshe" , nickName: "Moshe" , picture : " " , password: "789"},
+    {userName : "Sara" , nickName: "rita" , picture : " " , password: "789"},
+    {userName : "Alice" , nickName: "rita" , picture : " " , password: "789"},
+    {userName : "Bob" , nickName: "rita" , picture : " " , password: "789"},
+    {userName : "eden" , nickName: "rita" , picture : " " , password: "789"},
+]

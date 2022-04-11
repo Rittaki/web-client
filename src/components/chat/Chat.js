@@ -3,6 +3,7 @@ import './Chat.css';
 import { Modal, Button } from 'react-bootstrap';
 import AddNewContact from './addContact/AddNewContact';
 import ChatMessages from './chatMessages/ChatMessages';
+ import { userList } from '../Login';
 
 function Chat() {
     const contact_chat = [{ name: "Daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
@@ -13,13 +14,32 @@ function Chat() {
     { name: "eden", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
     const [selectedContact, SetSelectedContact] = useState("");
     const [selectedImg, SetSelectedImg] = useState("");
+    const[search, setSearch]=useState("");
+    const [newContact, setNewContact] = useState("");
+    const[inDatabase, setInDatabase] = useState(false);
+    const[isContact, setIsContact] = useState(false);
+    const[newContactError,setNewContactError]=useState("");
+    const [show, setShow] = useState(false);
+    const[addContactSubmit,setAddContactSubmit]=useState(false);
+
+
+
+
+    const filteredData = contact_chat.filter((contact) => {
+        if (search === '') {
+            return contact;
+        }
+        else if(contact.name.toLowerCase().includes(search.toLowerCase())){
+            return contact;
+        }
+    })
 
     const handleClick = (userName, img) => {
         SetSelectedContact(userName);
         SetSelectedImg(img);
     }
 
-    const chatList = contact_chat.map((contact, key) => {
+    const chatList = filteredData.map((contact, key) => {
         return (
             <div className="contacts-map">
                 <div className={(selectedContact === contact.name) ? "selected-contact" : "contacts"}
@@ -42,10 +62,56 @@ function Chat() {
         display: 'block',
     }
 
-    const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const handleClose = ()=> {
+        setShow(false);
+        setNewContact("");
+        setInDatabase(false);
+        setIsContact(false);
+        setNewContactError("");
+    } ;
 
+    const handleAddContact=()=>{
+        setAddContactSubmit(true);
+        setInDatabase(false);
+        setIsContact(false);
+        if(newContact===""){
+            setNewContactError("new contact username is required");
+        }
+        //change to login username.......
+        else if(newContact==="Rita"){
+            setNewContactError("can't add yourself as contact");
+        }
+        else{
+            userList.map((item)=>compareUserList(item));
+            contact_chat.map((item)=>compareContacts(item))
+        }
+    }
+
+    useEffect(()=>{
+        if(addContactSubmit && !inDatabase){
+            setNewContactError("can't find user");
+            
+        }
+        else if(addContactSubmit && isContact){
+                setNewContactError("user is already contact");
+        }
+        else if(addContactSubmit && isContact && inDatabase){
+            setNewContactError("add");
+        }
+    },[inDatabase,isContact]);
+
+
+    function compareUserList(item){
+        if(item.userName===newContact){
+            setInDatabase(true);
+        }
+    }
+    function compareContacts(item){
+        if(item.name===newContact){
+            setIsContact(true);
+        }
+    }
     return (
         <div className="container-fluid chat">
             <div className="row chat">
@@ -60,7 +126,7 @@ function Chat() {
                     <div className="search-box">
                         <div className="input-wrapper">
                             <i className="bi bi-search"></i>
-                            <input type="text" placeholder="Search chat"></input>
+                            <input type="text" placeholder="Search chat" onChange={(e)=>setSearch(e.target.value)}/>
                         </div>
                     </div>
                     <div className='contacts-container'>
@@ -76,13 +142,14 @@ function Chat() {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddNewContact />
+                        <AddNewContact setNewContact={setNewContact} />
+                        <div className='error'>{newContactError}</div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button variant="primary" onClick={handleAddContact}>
                             Add Contact
                         </Button>
                     </Modal.Footer>

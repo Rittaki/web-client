@@ -52,11 +52,6 @@ function Signup() {
 
     };
 
-    const jump_to_login = function() {
-        <div>
-            <Login/>;
-        </div>
-}
     return (
         <div className="container-fluid">
             {(Object.keys(errors).length===0 && isSubmit)? (<span className="success">sign up completed successfully</span>):<div></div>}

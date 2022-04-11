@@ -234,5 +234,7 @@ div.container-fluid.chat {
 .contacts-container{
     overflow-y: scroll;
     max-height: 55vh;
-    direction: ltr;
+}
+.error{
+    color:red
 }
