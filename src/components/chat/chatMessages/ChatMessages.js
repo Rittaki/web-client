@@ -1,20 +1,18 @@
+import React from "react";
 import { useState, useRef, useEffect } from "react";
 import "./ChatMessages.css";
 
 export default function ChatMessages(props) {
     const containerRef = useRef(null);
 
-    const [message, setMessage] = useState('');
-    const [send, setSend] = useState(false);
-    const handleSend = () => setSend(true);
-
-    const chat_messages = [{ from: "me", message: "Hey, whats up?" },
+    const [input, setInput] = useState('');
+    const [chat_messages, setItems] = React.useState([{ from: "me", message: "Hey, whats up?" },
     { from: "not", message: "Hey, have you seen the news?" },
     { from: "me", message: "What's the news?" },
     { from: "not", message: "Do you come to b-day party tonight?" },
     { from: "me", message: "Yes, sure!" },
     { from: "not", message: "Cool, see you!" },
-    { from: "not", message: "Don't forget to bring the present!" }];
+    { from: "not", message: "Don't forget to bring the present!" }])
 
     useEffect(() => {
 
@@ -29,15 +27,10 @@ export default function ChatMessages(props) {
 
     }, [containerRef, chat_messages])
 
-    const showItem = () => { // We activate this function when we got onClick on the "send icon"
-        let item = { from: "me", message: message }; // Here we put our new item that we got from input
-        chat_messages[chat_messages.length] = item;
+    const showItem = () => { 
+        setItems([...chat_messages, { from: "me", message: input }])
+        setInput('');
     }
-
-    if (send) {
-        showItem(); // We activate like this
-    }
-
 
     const messagesList = chat_messages.map((contact, key) => {
         if (contact.from === "me") {
@@ -89,12 +82,14 @@ export default function ChatMessages(props) {
                         <span>
                             <i className="bi bi-paperclip "></i>
                         </span>
-                        <input className="input-message" type={'text'} placeholder={'Write a message'}
-                            onChange={(e) => setMessage(e.target.value)}>
-                        </input>
-                        <span className="send-message" onClick={handleSend}>
-                            <i className="bi bi-send float-end"></i>
-                        </span>
+                        <form onSubmit={(e) => e.preventDefault()}>
+                            <input value={input} className="input-message" type={'text'} placeholder={'Write a message'}
+                                onChange={(e) => setInput(e.target.value)}>
+                            </input>
+                            <span className="send-message" onClick={showItem}>
+                                <i className="bi bi-send float-end"></i>
+                            </span>
+                        </form>
                     </div>
                 </div>
             </div>
