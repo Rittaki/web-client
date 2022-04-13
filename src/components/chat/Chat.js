@@ -20,9 +20,11 @@ function Chat() {
     const[newContactError,setNewContactError]=useState("");
     const [show, setShow] = useState(false);
     const[addContactSubmit,setAddContactSubmit]=useState(false);
+    const[currnetContact, setCurrentContact]=useState({});
+    const[array,setArray]=useState(contact_chat)
 
 
-    const filteredData = contact_chat.filter((contact) => {
+    const filteredData = array.filter((contact) => {
         if (search === '') {
             return contact;
         }
@@ -95,14 +97,20 @@ function Chat() {
             setNewContactError("user is already contact");
         }
         else if(addContactSubmit && !isContact && inDatabase){
+            console.log(contact_chat);
             setNewContactError("add");
+            contact_chat.unshift({ name: newContact, message: "", image: currnetContact.picture});
+            setArray(contact_chat)
+            setShow(false);
         }
     },[addContactSubmit,isContact,inDatabase]);
+
 
 
     function compareUserList(item){
         if(item.userName===newContact){
             setInDatabase(true);
+            setCurrentContact(item);
         }
     }
     function compareContacts(item){

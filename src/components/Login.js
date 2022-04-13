@@ -12,7 +12,7 @@ export default function Login() {
     const[isSubmit, setIsSubmit]=useState(false);
     const[isRedirect, setIsRedirect]=useState(false);
     let navigate = useNavigate();
-    
+
     const sunbmitFun = (e) => {
         e.preventDefault();
         setIsSubmit(true);
@@ -82,11 +82,11 @@ export default function Login() {
     );
 }
 export const userList = [
-    {userName : "Daniel" , nickName: "Daniel" , picture : " " , password: "123"},,
+    {userName : "Daniel" , nickName: "Daniel" , picture : "" , password: "123"},,
     {userName : "Rita" , nickName: "rita" , picture : " " , password: "789"},
     {userName : "Moshe" , nickName: "Moshe" , picture : " " , password: "789"},
     {userName : "Sara" , nickName: "rita" , picture : " " , password: "789"},
     {userName : "Alice" , nickName: "rita" , picture : " " , password: "789"},
     {userName : "Bob" , nickName: "rita" , picture : " " , password: "789"},
-    {userName : "eden" , nickName: "rita" , picture : " " , password: "789"},
+    {userName : "eden" , nickName: "rita" , picture : "images/cat1.png" , password: "789"},
 ]

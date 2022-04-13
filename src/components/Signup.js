@@ -11,8 +11,7 @@ function Signup() {
     const [picture, SetPicture]=useState("blank.png");
     const[errors, setErrors ]=useState({})
     const[isSubmit, setIsSubmit]=useState(false);
-    const[isTakenUsername, setIsTakenUsername]=useState(false);
-
+    
     const sunbmitFun = (e) => {
         e.preventDefault();
         setIsSubmit(true);
@@ -20,7 +19,6 @@ function Signup() {
     };
 
     function handlePicture(e) {
-        console.log(e.target.files);
         SetPicture(URL.createObjectURL(e.target.files[0]));
     }
 
@@ -56,12 +54,20 @@ function Signup() {
     };
 
 
+    useEffect(()=>{
+        if(Object.keys(errors).length===0 && isSubmit){
+            userList.push({userName : username , nickName: nickname , picture : picture , password: password});
+        }
+        
+    },);
+
+
     function compareUserList(item,errors){
         if(item.userName===username){
             errors.username="Username is taken"
         }
     }
-
+    //userList.push({userName : username , nickName: nickname , picture : picture , password: password})
     return (
         <div className="container-fluid">
             {(Object.keys(errors).length===0 && isSubmit)? (<span className="success">sign up completed successfully</span>):<div></div>}
