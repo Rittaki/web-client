@@ -51,6 +51,7 @@ export default function ChatMessages(props) {
         // if(selectedImage == File) {setType('image');
         // console.log(newImage);}
         setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedImage), type: "image" }]);
+        props.setLastMessage(input)
         console.log(selectedImage);
         setSelectedImage(null);
     }
