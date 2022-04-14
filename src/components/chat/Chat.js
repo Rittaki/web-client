@@ -5,12 +5,39 @@ import AddNewContact from './addContact/AddNewContact';
 import ChatMessages from './chatMessages/ChatMessages';
  import { userList } from '../Login';
 
-function Chat() {
-    const contact_chat = [{ name: "Daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
-    { name: "Moshe", message: "Hey, have you seen the news?", image: "./images/cat2.png" },
-    { name: "Sara", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
-    { name: "Alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat4.png" },
-    { name: "Bob", message: "Hey, have you seen the news?", image: "./images/cat7.png" }];
+function Chat(props) {
+
+    const contact_chat = [{user:"Rita",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
+    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
+    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", image: "./images/cat4.png" },
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat5.png" },
+    { name: "Bob",nickName:"bob", message: "Hey, have you seen the news?", image: "./images/cat6.png" }]},
+    {user:"Daniel",info:[{ name: "Rita",nickName:"rita", message: "Hey, have you seen the news?", image: "./images/cat2.png" },
+    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
+    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", image: "./images/cat4.png" },
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat5.png" },
+    ]},
+    {user:"Moshe",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
+    { name: "Rita",nickName:"rita", message: "Hey, have you seen the news?", image: "./images/cat2.png" },
+    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", image: "./images/cat4.png" },
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat5.png" },
+    { name: "Bob",nickName:"bob", message: "Hey, have you seen the news?", image: "./images/cat6.png" }]},
+    {user:"Sara",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
+    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
+    { name: "Rita",nickName:"rita", message: "Hey, have you seen the news?", image: "./images/cat2.png" },
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat5.png" },
+    { name: "Bob",nickName:"bob", message: "Hey, have you seen the news?", image: "./images/cat6.png" }]},
+    {user:"Alice",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
+    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
+    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", image: "./images/cat4.png" },
+    { name: "Rita",nickName:"rita", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat2.png" },
+    { name: "Bob",nickName:"bob", message: "Hey, have you seen the news?", image: "./images/cat6.png" }]},
+    {user:"Bob",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?", image: "./images/cat1.png" },
+    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?", image: "./images/cat3.png" },
+    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", image: "./images/cat4.png" },
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?", image: "./images/cat5.png" },
+    { name: "Rita",nickName:"rita", message: "Hey, have you seen the news?", image: "./images/cat2.png" }]}
+];
     const [selectedContact, SetSelectedContact] = useState("");
     const [selectedImg, SetSelectedImg] = useState("");
     const[search, setSearch]=useState("");
@@ -21,7 +48,18 @@ function Chat() {
     const [show, setShow] = useState(false);
     const[addContactSubmit,setAddContactSubmit]=useState(false);
     const[currnetContact, setCurrentContact]=useState({});
-    const[array,setArray]=useState(contact_chat)
+
+
+    const elementFromContactChat=contact_chat.filter((item)=>{
+        if(item.user===props.user.userName){
+            return item;
+        }
+    }).map((filteredElement=>(
+        filteredElement.info)
+    ));
+    
+    
+    const[array,setArray]=useState((elementFromContactChat.length!=0)?elementFromContactChat[0]:[]);
 
 
     const filteredData = array.filter((contact) => {
@@ -32,7 +70,6 @@ function Chat() {
             return contact;
         }
     })
-
     const handleClick = (userName, img) => {
         SetSelectedContact(userName);
         SetSelectedImg(img);
@@ -41,13 +78,13 @@ function Chat() {
     const chatList = filteredData.map((contact, key) => {
         return (
             <div className="contacts-map">
-                <div className={(selectedContact === contact.name) ? "selected-contact" : "contacts"}
-                    onClick={() => handleClick(contact.name, contact.image)}>
-                    <img className={(selectedContact === contact.name) ? "selected-contacts-image" : "contacts-image"}
+                <div className={(selectedContact === contact.nickName) ? "selected-contact" : "contacts"}
+                    onClick={() => handleClick(contact.nickName, contact.image)}>
+                    <img className={(selectedContact === contact.nickName) ? "selected-contacts-image" : "contacts-image"}
                         src={contact.image} alt="icon"></img>
-                    <div className={(selectedContact === contact.name) ? "selected-message" : "message"}>
-                        <h6 className={(selectedContact === contact.name) ? "selected-contact-name" : "contact-name"}>{contact.name}</h6>
-                        <p className={(selectedContact === contact.name) ? "selected-text-muted" : "text-muted"}>{contact.message}</p>
+                    <div className={(selectedContact === contact.nickName) ? "selected-message" : "message"}>
+                        <h6 className={(selectedContact === contact.nickName) ? "selected-contact-name" : "contact-name"}>{contact.nickName}</h6>
+                        <p className={(selectedContact === contact.nickName) ? "selected-text-muted" : "text-muted"}>{contact.message}</p>
                     </div>
                     <span className="time-text-muted-small">1 minute ago</span>
                 </div>
@@ -68,6 +105,7 @@ function Chat() {
         setInDatabase(false);
         setIsContact(false);
         setNewContactError("");
+        setAddContactSubmit(false);
     } ;
 
     const handleAddContact=()=>{
@@ -85,7 +123,7 @@ function Chat() {
         }
         else{
             userList.map((item)=>compareUserList(item));
-            contact_chat.map((item)=>compareContacts(item))
+            array.map((item)=>compareContacts(item))
         }
     }
 
@@ -97,11 +135,8 @@ function Chat() {
             setNewContactError("user is already contact");
         }
         else if(addContactSubmit && !isContact && inDatabase){
-            console.log(contact_chat);
-            setNewContactError("add");
-            contact_chat.unshift({ name: newContact, message: "", image: currnetContact.picture});
-            setArray(contact_chat)
-            setShow(false);
+            array.unshift({ name: newContact,nickName:currnetContact.nickName, message: "", image: currnetContact.picture});
+            handleClose();
         }
     },[addContactSubmit,isContact,inDatabase]);
 
@@ -123,8 +158,8 @@ function Chat() {
             <div className="row chat">
                 <div className="col-md-5 contacts-colomn">
                     <div className="profile-panel">
-                        <img className="profile-image" src="./images/cat.png" alt="icon"></img>
-                        <span className="profile-name">Rita</span>
+                        <img className="profile-image" src={props.user.picture} alt="icon"></img>
+                        <span className="profile-name">{props.user.userName}</span>
                         <span className="add-contact" onClick={handleShow}>
                             <i className="bi bi-person-plus float-end"></i>
                         </span>
