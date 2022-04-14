@@ -7,11 +7,11 @@ import ChatMessages from './chatMessages/ChatMessages';
 
 function Chat(props) {
 
-    const contact_chat = [{user:"Rita",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?",time:1, image: "./images/cat1.png" },
-    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?",time:2, image: "./images/cat3.png" },
-    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?",time:3, image: "./images/cat4.png" },
-    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?",time:4, image: "./images/cat5.png" },
-    { name: "Bob",nickName:"bob", message: "Hey, have you seen the news?",time:5, image: "./images/cat6.png" }]},
+    const contact_chat = [{user:"Rita",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?",time:58, image: "./images/cat1.png" },
+    { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?",time:63, image: "./images/cat3.png" },
+    { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?",time:128, image: "./images/cat4.png" },
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?",time:1200, image: "./images/cat5.png" },
+    { name: "Bob",nickName:"bob", message: "Hey, have you seen the news?",time:2900, image: "./images/cat6.png" }]},
     {user:"Daniel",info:[{ name: "Rita",nickName:"rita", message: "Hey, have you seen the news?",time:1, image: "./images/cat2.png" },
     { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?",time:2, image: "./images/cat3.png" },
     { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", time:3,image: "./images/cat4.png" },
@@ -47,8 +47,8 @@ function Chat(props) {
     const [show, setShow] = useState(false);
     const[addContactSubmit,setAddContactSubmit]=useState(false);
     const[currnetContact, setCurrentContact]=useState({});
-
-    const [lastMessage,setLastMessage]=useState("")
+    const [lastMessage,setLastMessage]=useState("");
+    const [minutes,setMinutes]=useState(0);
 
 
     const elementFromContactChat=contact_chat.filter((item)=>{
@@ -75,6 +75,9 @@ function Chat(props) {
         SetSelectedContact(contact);
     }
 
+
+    
+
     const chatList = filteredData.map((contact, key) => {
         return (
             <div className="contacts-map">
@@ -86,7 +89,8 @@ function Chat(props) {
                         <h6 className={(selectedContact.name === contact.name) ? "selected-contact-name" : "contact-name"}>{contact.nickName}</h6>
                         <p className={(selectedContact.name === contact.name) ? "selected-text-muted" : "text-muted"}>{contact.message}</p>
                     </div>
-                    <span className="time-text-muted-small">{(contact.time>0)?(contact.time>1)?(`${contact.time} minutes ago`):(`${contact.time} minute ago`):"just now"}</span>
+                    <span className="time-text-muted-small">{(contact.message=="")?"":(contact.time>0)?(contact.time>1)?(contact.time>59)?(contact.time>=120)?(contact.time>=1440)?(contact.time>=2880)?(`${Math.floor(contact.time/1440)} days ago`):("1 day ago"):(`${Math.floor(contact.time/60)} hours ago`):("1 hour ago"):
+                    (`${contact.time} minutes ago`):(`1 minute ago`):("just now")}</span>
                 </div>
                 <hr />
             </div>
@@ -117,7 +121,7 @@ function Chat(props) {
             setAddContactSubmit(false);
         }
         //change to login username.......
-        else if(newContact==="Rita"){
+        else if(newContact===props.user.userName){
             setNewContactError("can't add yourself as contact");
             setAddContactSubmit(false);
         }
@@ -144,19 +148,37 @@ function Chat(props) {
 
     useEffect(()=>{
         if(lastMessage!=""){
-            const elemnt=array.map((contact)=>{
-                console.log(selectedContact.name);
-                console.log(contact.name);
+            array.map((contact)=>{
                 if(contact.name==selectedContact.name){
                     contact.message=lastMessage;
+                    contact.time=-1;
+                }
+            })
+            array.sort((a,b)=>(a.time>b.time)?1:(a.time===b.time)?0:-1)
+            array.map((contact)=>{
+                if(contact.name==selectedContact.name){
                     contact.time=0;
                 }
             })
-            console.log(elemnt);
-            //array.selectedContact.message=lastMessage;
             setLastMessage("");
         }
     },[lastMessage])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            array.map((contact)=>{
+                contact.time+=1;;
+                setMinutes((minutes)=>minutes+1);
+            })
+        }, 1000*60);
+    
+        return () => clearInterval(interval);
+      }, []);
+
+
+      useEffect(() => {
+      }, [minutes]);
+
 
     function compareUserList(item){
         if(item.userName===newContact){
