@@ -25,10 +25,12 @@
     border-left: 0;
     margin-left: -20px;
 }
+
 .chat-bubble--right {
-    background:rgb(203, 240, 255);
+    background: rgb(203, 240, 255);
     color: #fff;
 }
+
 .chat-bubble--right::after {
     right: 0;
     border-left-color: rgb(203, 240, 255);
@@ -39,6 +41,7 @@
 .offset-md-9 {
     direction: rtl;
 }
+
 .row.right {
     vertical-align: middle;
     display: flexbox;
@@ -50,26 +53,32 @@
     overflow-y: scroll;
     height: 55vh;
 }
-.chat-panel > * .text-muted {
+
+.chat-panel>* .text-muted {
     background: #eee;
 }
-.chat-panel > * .time {
-    font-size:x-small;
-}
 
-.chat-bubble--right > .text-muted {
-    background:rgb(203, 240, 255);
-    direction: ltr;
-}
-.chat-bubble--right > .time {
+.chat-panel>* .time {
     font-size: x-small;
 }
+
+.chat-bubble--right>.text-muted {
+    background: rgb(203, 240, 255);
+    direction: ltr;
+}
+
+.chat-bubble--right>.time {
+    font-size: x-small;
+}
+
 .bi-paperclip {
     font-size: x-large;
 }
-.bi-send{
+
+.bi-send {
     font-size: x-large;
 }
+
 .new-message-panel {
     background: #eee;
     display: flex;
@@ -77,17 +86,113 @@
     align-items: center;
     bottom: 0;
 }
+
 .new-message-panel input {
     margin: 0 10px;
     padding: 6px 2px;
 }
+
 .new-message-panel i {
     vertical-align: middle;
 }
+
 .input-message {
     width: 100%;
 }
+
+.send-message {
+    border-color: rgb(177, 233, 255);
+    background-color: rgb(177, 233, 255);
+}
+
 .send-message:hover {
     color: grey;
     cursor: pointer;
+    border-color: rgb(177, 233, 255);
+    background-color: rgb(177, 233, 255);
+}
+
+.send-message:focus {
+    border-color: rgb(177, 233, 255);
+    background-color: rgb(177, 233, 255);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.input-message.form-control {
+    margin-left: 10px !important;
+}
+
+.form-control:focus {
+    outline: none !important;
+    box-shadow: none;
+    border-color: #ced4da
+}
+
+.dropdown-button {
+    border-color: rgb(177, 233, 255);
+    background-color: rgb(177, 233, 255);
+}
+
+.dropdown-button:hover {
+    color: grey !important;
+    border-color: rgb(177, 233, 255);
+    background-color: rgb(177, 233, 255);
+}
+
+.dropdown-button:focus {
+    border-color: rgb(177, 233, 255);
+    background-color: rgb(177, 233, 255);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.image-icon {
+    width: 50px;
+    margin: 10px;
+}
+
+.dropdown-menu.show {
+    border: none;
+    background-color: transparent;
+}
+
+.dropdown-item {
+    padding: 0;
+    width: fit-content;
+}
+
+.dropdown-item:hover {
+    background-color: transparent;
+}
+
+.dropdown-menu .item-1 {
+    animation: growOut 600ms ease-in-out forwards;
+    transform-origin: top center;
+}
+
+.dropdown-menu .item-2 {
+    animation: growOut 500ms ease-in-out forwards;
+    transform-origin: top center;
+}
+
+.dropdown-menu .item-3 {
+    animation: growOut 400ms ease-in-out forwards;
+    transform-origin: top center;
+}
+
+@keyframes growOut {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    80% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

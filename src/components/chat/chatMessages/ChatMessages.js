@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
+import { Button, Dropdown, Form, FormControl, InputGroup } from "react-bootstrap";
 import "./ChatMessages.css";
 
 export default function ChatMessages(props) {
@@ -27,9 +28,14 @@ export default function ChatMessages(props) {
 
     }, [containerRef, chat_messages])
 
-    const showItem = () => { 
+    const showItem = () => {
+        if (input === '') return;
         setItems([...chat_messages, { from: "me", message: input }])
         setInput('');
+    }
+
+    const enterKey = (e) => {
+        if (e.which === 13) showItem();
     }
 
     const messagesList = chat_messages.map((contact, key) => {
@@ -79,17 +85,29 @@ export default function ChatMessages(props) {
             <div className="row">
                 <div className="col-12">
                     <div className="new-message-panel">
-                        <span>
-                            <i className="bi bi-paperclip "></i>
-                        </span>
-                        <form onSubmit={(e) => e.preventDefault()}>
-                            <input value={input} className="input-message" type={'text'} placeholder={'Write a message'}
-                                onChange={(e) => setInput(e.target.value)}>
-                            </input>
-                            <span className="send-message" onClick={showItem}>
+
+                        <InputGroup >
+                            <Dropdown drop="up">
+                                <Dropdown.Toggle className="dropdown-button">
+                                    <i className="bi bi-paperclip "></i>
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu className="animate slideIn">
+                                    <Dropdown.Item className="item-1" href="#/action-1"><img className="image-icon" src="./images/image.png" alt="image" /></Dropdown.Item>
+                                    <Dropdown.Item className="item-2" href="#/action-2"><img className="image-icon" src="./images/movie.png" alt="image" /></Dropdown.Item>
+                                    <Dropdown.Item className="item-3" href="#/action-3"><img className="image-icon" src="./images/voice.png" alt="image" /></Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
+                            <Form.Control value={input} className="input-message" type={'text'} placeholder={'Write a message'}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyPress={enterKey}>
+                            </Form.Control>
+                            <Button className="send-message" onClick={showItem}>
                                 <i className="bi bi-send float-end"></i>
-                            </span>
-                        </form>
+                            </Button>
+                        </InputGroup>
+
                     </div>
                 </div>
             </div>
