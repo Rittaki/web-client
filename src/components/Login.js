@@ -11,6 +11,7 @@ export default function Login() {
     const[isFound, setIsFound] = useState(false);
     const[isSubmit, setIsSubmit]=useState(false);
     const[isRedirect, setIsRedirect]=useState(false);
+    const[saveUser,setSaveUser]=useState({});
     let navigate = useNavigate();
 
     const sunbmitFun = (e) => {
@@ -35,6 +36,7 @@ export default function Login() {
     function compare(item){
         if(item.userName===userName && item.password===password ){
                 setIsFound(true);
+                setSaveUser(item);
         }
     }
     useEffect(()=>{
@@ -48,8 +50,8 @@ export default function Login() {
     },[errors]);
 
     if(isRedirect){
-        navigate(`/chat`)
-        return <Chat/> 
+        window.history.pushState(null, '', `/Chat-${userName}`);
+        return (<Chat user={saveUser}/> )
     }
     return (
         <div className="container-fluid">
@@ -82,11 +84,11 @@ export default function Login() {
     );
 }
 export const userList = [
-    {userName : "Daniel" , nickName: "Daniel" , picture : "" , password: "123"},,
-    {userName : "Rita" , nickName: "rita" , picture : " " , password: "789"},
-    {userName : "Moshe" , nickName: "Moshe" , picture : " " , password: "789"},
-    {userName : "Sara" , nickName: "rita" , picture : " " , password: "789"},
-    {userName : "Alice" , nickName: "rita" , picture : " " , password: "789"},
-    {userName : "Bob" , nickName: "rita" , picture : " " , password: "789"},
-    {userName : "eden" , nickName: "rita" , picture : "images/cat1.png" , password: "789"},
+    {userName : "Daniel" , nickName: "daniel" , picture : "./images/cat1.png" , password: "123"},,
+    {userName : "Rita" , nickName: "rita" , picture : "./images/cat2.png" , password: "789"},
+    {userName : "Moshe" , nickName: "moshe" , picture : "./images/cat3.png" , password: "789"},
+    {userName : "Sara" , nickName: "sara" , picture : "./images/cat4.png" , password: "789"},
+    {userName : "Alice" , nickName: "alice" , picture : "./images/cat5.png" , password: "789"},
+    {userName : "Bob" , nickName: "bob" , picture : "./images/cat6.png" , password: "789"},
+    {userName : "Eden" , nickName: "eden" , picture : "images/cat7.png" , password: "789"},
 ]
