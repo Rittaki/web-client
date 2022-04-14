@@ -126,14 +126,14 @@ export default function ChatMessages(props) {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu className="animate slideIn">
-                                    <Dropdown.Item className="item-1" href="#/action-1"
+                                    <Dropdown.Item className="item-1" 
                                         onClick={handleShowImageModal}>
                                         <img className="image-icon" src="./images/image.png" alt="image" />
                                     </Dropdown.Item>
-                                    <Dropdown.Item className="item-2" href="#/action-2">
+                                    <Dropdown.Item className="item-2">
                                         <img className="image-icon" src="./images/movie.png" alt="image" />
                                     </Dropdown.Item>
-                                    <Dropdown.Item className="item-3" href="#/action-3">
+                                    <Dropdown.Item className="item-3">
                                         <img className="image-icon" src="./images/voice.png" alt="image" />
                                     </Dropdown.Item>
                                 </Dropdown.Menu>
