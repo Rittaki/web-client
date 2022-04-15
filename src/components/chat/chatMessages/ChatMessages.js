@@ -46,21 +46,26 @@ export default function ChatMessages(props) {
     const showItem = () => {
         if (input === '') return;
         setItems([...chat_messages, { from: "me", message: input }])
-        props.setLastMessage(input)
+        if(input.length>45){
+            props.setLastMessage(input.slice(0, 45).concat("..."));
+        }
+        else{
+            props.setLastMessage(input)
+        }
         setInput('');
     }
 
     const showImage = () => {
         handleCloseImageModal();
         setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedImage), type: "image" }]);
-        props.setLastMessage(input)
+        props.setLastMessage("Image")
         setSelectedImage(null);
     }
 
     const showVideoFunc = () => {
         handleCloseVideoModal();
         setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedVideo), type: "video" }]);
-        props.setLastMessage(input)
+        props.setLastMessage("Video")
         setSelectedVideo(null);
     }
 
