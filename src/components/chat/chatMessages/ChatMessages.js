@@ -46,6 +46,7 @@ export default function ChatMessages(props) {
     const showItem = () => {
         if (input === '') return;
         setItems([...chat_messages, { from: "me", message: input }])
+        props.setLastMessage(input)
         setInput('');
     }
 
