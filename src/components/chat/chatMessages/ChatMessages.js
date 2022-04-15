@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
-import { Button, Dropdown, Form, FormControl, InputGroup, Modal } from "react-bootstrap";
+import { Button, Dropdown, Form, InputGroup} from "react-bootstrap";
 import "./ChatMessages.css";
 import ImageModal from "../uploadImage/ImageModal";
+import VideoModal from "../uploadImage/VideoModal";
 
 export default function ChatMessages(props) {
     const containerRef = useRef(null);
@@ -17,12 +18,17 @@ export default function ChatMessages(props) {
     { from: "not", message: "Don't forget to bring the present!", type: "text" }])
 
     /* for images */
-    const [type, setType] = useState('');
     const [show, setShow] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
-    // const handleSetImage = (e) => setInput(e);
     const handleCloseImageModal = () => setShow(false);
     const handleShowImageModal = () => setShow(true);
+
+    /* for video */
+    const [showVideoModal, setShowVideoModal] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const handleCloseVideoModal = () => setShowVideoModal(false);
+    const handleShowVideoModal = () => setShowVideoModal(true);
+
 
     useEffect(() => {
 
@@ -45,15 +51,16 @@ export default function ChatMessages(props) {
 
     const showImage = () => {
         handleCloseImageModal();
-        // console.log(selectedImage);
-        // let newImage = { from: "me", message: URL.createObjectURL(selectedImage), type: "image" };
-        // console.log(selectedImage);
-        // if(selectedImage == File) {setType('image');
-        // console.log(newImage);}
         setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedImage), type: "image" }]);
         props.setLastMessage(input)
-        console.log(selectedImage);
         setSelectedImage(null);
+    }
+
+    const showVideoFunc = () => {
+        handleCloseVideoModal();
+        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedVideo), type: "video" }]);
+        props.setLastMessage(input)
+        setSelectedVideo(null);
     }
 
     const enterKey = (e) => {
@@ -65,29 +72,37 @@ export default function ChatMessages(props) {
             return (
                 <div className="row">
                     <div className="col-md-3 offset-md-9">
-                        <div className="chat-bubble chat-bubble--right">
+
                         {(() => {
-                            if (contact.type==="image") {
-                              return (
-                                <div><img alt="not found" width={"200px"} src={contact.message} />
-                                <span className="time text-muted small">00:01</span></div>
-                              )
-                            } else {
-                              return (
-                                <div><p className="text-muted">{contact.message}</p>
-                                <span className="time text-muted small">00:01</span></div>
-                              )
+                            if (contact.type === "image") {
+                                return (
+                                    <div className="chat-bubble chat-bubble--right"><img alt="not found" width={"200px"} src={contact.message} />
+                                        <span className="time text-muted small">00:01</span></div>
+                                )
+                            } else if (contact.type === "video") {
+                                return (
+                                    <div className="chat-bubble chat-bubble--right">
+                                        <video width={"400px"} controls>
+                                            <source src={contact.message} type="video/mp4" />
+                                        </video>
+                                        <span className="time text-muted small">00:01</span></div>
+                                )
                             }
-                          })()}
-                            
-                        </div>
+
+                            else {
+                                return (
+                                    <div className="chat-bubble chat-bubble--right"><p className="text-muted">{contact.message}</p>
+                                        <span className="time text-muted small">00:01</span></div>
+                                )
+                            }
+                        })()}
+
                     </div>
                 </div>
             )
         }
         else {
             return (
-
                 <div className="row">
                     <div className="col-md-3">
                         <div className="chat-bubble chat-bubble--left">
@@ -96,8 +111,6 @@ export default function ChatMessages(props) {
                         </div>
                     </div>
                 </div>
-
-
             )
         }
     });
@@ -111,7 +124,6 @@ export default function ChatMessages(props) {
                     <p className="text-muted quote">Throw kindness around like confetti</p>
                 </span>
             </div>
-
 
             <div className="chat-panel" ref={containerRef}>
                 {messagesList}
@@ -127,11 +139,12 @@ export default function ChatMessages(props) {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu className="animate slideIn">
-                                    <Dropdown.Item className="item-1" 
+                                    <Dropdown.Item className="item-1"
                                         onClick={handleShowImageModal}>
                                         <img className="image-icon" src="./images/image.png" alt="image" />
                                     </Dropdown.Item>
-                                    <Dropdown.Item className="item-2">
+                                    <Dropdown.Item className="item-2"
+                                        onClick={handleShowVideoModal}>
                                         <img className="image-icon" src="./images/movie.png" alt="image" />
                                     </Dropdown.Item>
                                     <Dropdown.Item className="item-3">
@@ -144,51 +157,15 @@ export default function ChatMessages(props) {
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyPress={enterKey}>
                             </Form.Control>
-                            {/*<h1><UploadAndDisplayImage /></h1>*/}
                             <Button className="send-message" onClick={showItem}>
                                 <i className="bi bi-send float-end"></i>
                             </Button>
 
-
-
-                            {/** IMAGE MODAL PART START */}
-                            {/*<ImageModal show={show} onHide={handleCloseImageModal} />*/}
-                            <Modal show={show} onHide={handleCloseImageModal}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Modal heading</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-
-                                    Upload an image from your computer
-                                    {selectedImage && (
-                                        <div>
-                                            <img alt="not found" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-                                            <br />
-                                        </div>
-                                    )}
-                                    <br />
-
-                                    <br />
-                                    <input type="file"
-                                        name="myImage"
-                                        onChange={(event) => {
-                                            setSelectedImage(event.target.files[0]);
-                                            console.log(event.target.files[0]);
-                                        }} />
-
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleCloseImageModal}>
-                                        Close
-                                    </Button>
-                                    <Button variant="primary" onClick={showImage}>
-                                        Save Changes
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                            {/** IMAGE MODAL PART END */}
-
-
+                            <ImageModal show={show} onHide={handleCloseImageModal} image={selectedImage}
+                                showImage={showImage} setImage={setSelectedImage} />
+                            
+                            <VideoModal show={showVideoModal} onHide={handleCloseVideoModal} video={selectedVideo}
+                                showVideo={showVideoFunc} setVideo={setSelectedVideo} />
 
                         </InputGroup>
                     </div>
