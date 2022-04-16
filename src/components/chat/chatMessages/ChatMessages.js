@@ -133,7 +133,7 @@ export default function ChatMessages(props) {
             <div className="current-contact">
                 <img className="profile-image" src={props.img} alt="icon"></img>
                 <span className="text">
-                    <h6 className="contact-name">{props.name}</h6>
+                    <h6 className="contact-name">{props.nickname}</h6>
                     <p className="text-muted quote">Throw kindness around like confetti</p>
                 </span>
             </div>
