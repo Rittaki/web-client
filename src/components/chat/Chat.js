@@ -15,8 +15,7 @@ function Chat(props) {
     {user:"Daniel",info:[{ name: "Rita",nickName:"rita", message: "Hey, have you seen the news?",time:1, image: "./images/cat2.png" },
     { name: "Moshe",nickName:"moshe", message: "Hey, have you seen the news?",time:2, image: "./images/cat3.png" },
     { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?", time:3,image: "./images/cat4.png" },
-    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?",time:4, image: "./images/cat5.png" },
-    ]},
+    { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?",time:4, image: "./images/cat5.png" },]},
     {user:"Moshe",info:[{ name: "Daniel",nickName:"daniel", message: "Hey, have you seen the news?",time:1, image: "./images/cat1.png" },
     { name: "Rita",nickName:"rita", message: "Hey, have you seen the news?",time:2, image: "./images/cat2.png" },
     { name: "Sara",nickName:"sara", message: "Hey, have you seen the news?",time:3, image: "./images/cat4.png" },
@@ -38,8 +37,13 @@ function Chat(props) {
     { name: "Alice",nickName:"alice", message: "Hi! Do you come to my b-day party tonight?",time:4, image: "./images/cat5.png" },
     { name: "Rita",nickName:"rita", message: "Hey, have you seen the news?",time:5, image: "./images/cat2.png" }]}
 ];
+
+
+
     const [selectedContact, SetSelectedContact] = useState({});
     const[search, setSearch]=useState("");
+    
+    //for adding new contact
     const [newContact, setNewContact] = useState("");
     const[inDatabase, setInDatabase] = useState(false);
     const[isContact, setIsContact] = useState(false);
@@ -47,6 +51,7 @@ function Chat(props) {
     const [show, setShow] = useState(false);
     const[addContactSubmit,setAddContactSubmit]=useState(false);
     const[currnetContact, setCurrentContact]=useState({});
+    //last message update and time since
     const [lastMessage,setLastMessage]=useState("");
     const [minutes,setMinutes]=useState(0);
 
@@ -120,7 +125,6 @@ function Chat(props) {
             setNewContactError("new contact username is required");
             setAddContactSubmit(false);
         }
-        //change to login username.......
         else if(newContact===props.user.userName){
             setNewContactError("can't add yourself as contact");
             setAddContactSubmit(false);
@@ -236,7 +240,7 @@ function Chat(props) {
 
                 <div className="col-md-7 chat-colomn" >
 
-                    {(selectedContact.name) ?(<ChatMessages name={selectedContact.nickName} img={selectedContact.image} setLastMessage={setLastMessage} />)
+                    {(selectedContact.name) ?(<ChatMessages user={props.user} contactUserName={selectedContact.name} nickname ={selectedContact.nickName} img={selectedContact.image} setLastMessage={setLastMessage} />)
                         : <div className="select-text">Select a chat to start messaging</div>}
                 </div>
             </div>

@@ -9,13 +9,13 @@ export default function ChatMessages(props) {
     const containerRef = useRef(null);
 
     const [input, setInput] = useState('');
-    const [chat_messages, setItems] = React.useState([{ from: "me", message: "Hey, whats up?", type: "text" },
-    { from: "not", message: "Hey, have you seen the news?", type: "text" },
-    { from: "me", message: "What's the news?", type: "text" },
-    { from: "not", message: "Do you come to b-day party tonight?", type: "text" },
-    { from: "me", message: "Yes, sure!", type: "text" },
-    { from: "not", message: "Cool, see you!", type: "text" },
-    { from: "not", message: "Don't forget to bring the present!", type: "text" }])
+    const [chat_messages, setItems] = React.useState([{ from: "me", message: "Hey, whats up?",time:"12:07", type: "text" },
+    { from: "not", message: "Hey, have you seen the news?",time:"12:07", type: "text" },
+    { from: "me", message: "What's the news?",time:"12:07", type: "text" },
+    { from: "not", message: "Do you come to b-day party tonight?",time:"12:07", type: "text" },
+    { from: "me", message: "Yes, sure!",time:"12:07", type: "text" },
+    { from: "not", message: "Cool, see you!",time:"12:07", type: "text" },
+    { from: "not", message: "Don't forget to bring the present!",time:"12:07", type: "text" }])
 
     /* for images */
     const [show, setShow] = useState(false);
@@ -45,7 +45,9 @@ export default function ChatMessages(props) {
 
     const showItem = () => {
         if (input === '') return;
-        setItems([...chat_messages, { from: "me", message: input }])
+        var today = new Date();
+        const messageTime = today.getHours() + ':' + today.getMinutes();
+        setItems([...chat_messages, { from: "me",time:messageTime, message: input }])
         if(input.length>45){
             props.setLastMessage(input.slice(0, 45).concat("..."));
         }
@@ -57,14 +59,19 @@ export default function ChatMessages(props) {
 
     const showImage = () => {
         handleCloseImageModal();
-        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedImage), type: "image" }]);
+        var today = new Date();
+        const messageTime = today.getHours() + ':' + today.getMinutes();
+        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedImage),time:messageTime, type: "image" }]);
+        delete today();
         props.setLastMessage("Image")
         setSelectedImage(null);
     }
 
     const showVideoFunc = () => {
         handleCloseVideoModal();
-        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedVideo), type: "video" }]);
+        var today = new Date();
+        const messageTime = today.getHours() + ':' + today.getMinutes();
+        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedVideo),time:messageTime, type: "video" }]);
         props.setLastMessage("Video")
         setSelectedVideo(null);
     }
@@ -83,7 +90,7 @@ export default function ChatMessages(props) {
                             if (contact.type === "image") {
                                 return (
                                     <div className="chat-bubble chat-bubble--right"><img alt="not found" width={"200px"} src={contact.message} />
-                                        <span className="time text-muted small">00:01</span></div>
+                                        <span className="time text-muted small">{contact.time}</span></div>
                                 )
                             } else if (contact.type === "video") {
                                 return (
@@ -91,14 +98,14 @@ export default function ChatMessages(props) {
                                         <video width={"400px"} controls>
                                             <source src={contact.message} type="video/mp4" />
                                         </video>
-                                        <span className="time text-muted small">00:01</span></div>
+                                        <span className="time text-muted small">{contact.time}</span></div>
                                 )
                             }
 
                             else {
                                 return (
                                     <div className="chat-bubble chat-bubble--right"><p className="text-muted">{contact.message}</p>
-                                        <span className="time text-muted small">00:01</span></div>
+                                        <span className="time text-muted small">{contact.time}</span></div>
                                 )
                             }
                         })()}
@@ -113,7 +120,7 @@ export default function ChatMessages(props) {
                     <div className="col-md-3">
                         <div className="chat-bubble chat-bubble--left">
                             <p className="text-muted">{contact.message}</p>
-                            <span className="time text-muted small">00:01</span>
+                            <span className="time text-muted small">{contact.time}</span>
                         </div>
                     </div>
                 </div>
