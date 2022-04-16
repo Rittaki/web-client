@@ -2,6 +2,7 @@ import './Signup.css'
 import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { userList } from './Login';
+import Chat from './chat/Chat';
 
 function Signup() {
     const [username , setUsername] =useState("");
@@ -11,6 +12,7 @@ function Signup() {
     const [picture, SetPicture]=useState("blank.png");
     const[errors, setErrors ]=useState({})
     const[isSubmit, setIsSubmit]=useState(false);
+    const[isRedirect, setIsRedirect]=useState(false);
     
     const sunbmitFun = (e) => {
         e.preventDefault();
@@ -56,10 +58,17 @@ function Signup() {
 
     useEffect(()=>{
         if(Object.keys(errors).length===0 && isSubmit){
+            setIsRedirect(true)
             userList.push({userName : username , nickName: nickname , picture : picture , password: password});
         }
         
     },);
+
+    if(isRedirect){
+        window.history.pushState(null, '', `/Chat`);
+        return (<Chat user={{userName : username , nickName: nickname , picture : picture , password: password}}/> )
+    }
+
 
 
     function compareUserList(item,errors){
@@ -70,7 +79,6 @@ function Signup() {
     //userList.push({userName : username , nickName: nickname , picture : picture , password: password})
     return (
         <div className="container-fluid">
-            {(Object.keys(errors).length===0 && isSubmit)? (<span className="success">sign up completed successfully</span>):<div></div>}
             <div className="row">
                 <div className="col-md-3 col-sm-4 col-xs-12"></div>
                 <div className="col-md-4 col-sm-4 col-xs-12">

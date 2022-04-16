@@ -54,11 +54,13 @@ function Chat(props) {
     //last message update and time since
     const [lastMessage,setLastMessage]=useState("");
     const [minutes,setMinutes]=useState(0);
-    const [newSign,setNewSign]=useState(false);
 
+    const [newSign,setNewSign]=useState(false);
+    const [saveUser, setSaveUser] = useState((props.user===undefined)?JSON.parse(localStorage.getItem('user')):props.user);
+    
 
     const elementFromContactChat=contact_chat.filter((item)=>{
-        if(item.user===props.user.userName){
+        if(item.user===saveUser.userName){
             return item;
         }
     }).map((filteredElement=>(
@@ -123,7 +125,7 @@ function Chat(props) {
             setNewContactError("new contact username is required");
             setAddContactSubmit(false);
         }
-        else if(newContact===props.user.userName){
+        else if(newContact===saveUser.userName){
             setNewContactError("can't add yourself as contact");
             setAddContactSubmit(false);
         }
@@ -185,6 +187,14 @@ function Chat(props) {
       }, [minutes]);
 
 
+      useEffect(() => {
+          if(props.user!=undefined){
+            localStorage.setItem('user', JSON.stringify(props.user))
+          }
+    },[]);
+      
+
+
     function compareUserList(item){
         if(item.userName===newContact){
             setInDatabase(true);
@@ -201,8 +211,8 @@ function Chat(props) {
             <div className="row chat">
                 <div className="col-md-5 contacts-colomn">
                     <div className="profile-panel">
-                        <img className="profile-image" src={props.user.picture} alt="icon"></img>
-                        <span className="profile-name">{props.user.userName}</span>
+                        <img className="profile-image" src={saveUser.picture} alt="icon"></img>
+                        <span className="profile-name">{saveUser.userName}</span>
                         <span className="add-contact" onClick={handleShow}>
                             <i className="bi bi-person-plus float-end"></i>
                         </span>
@@ -241,7 +251,7 @@ function Chat(props) {
 
                 <div className="col-md-7 chat-colomn" >
 
-                    {(selectedContact.name) ?(<ChatMessages newSign={newSign} logInUserName={props.user.userName} contactUserName={selectedContact.name} nickname ={selectedContact.nickName} img={selectedContact.image} setLastMessage={setLastMessage} />)
+                    {(selectedContact.name) ?(<ChatMessages newSign={newSign} logInUserName={saveUser.userName} contactUserName={selectedContact.name} nickname ={selectedContact.nickName} img={selectedContact.image} setLastMessage={setLastMessage} />)
                         : <div className="select-text">Select a chat to start messaging</div>}
                 </div>
             </div>
