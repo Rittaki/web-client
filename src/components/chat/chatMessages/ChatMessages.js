@@ -104,8 +104,12 @@ export default function ChatMessages(props) {
         handleCloseImageModal();
         var today = new Date();
         const messageTime = today.getHours() + ':' + today.getMinutes();
-        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedImage),time:messageTime, type: "image" }]);
-        delete today();
+        chat_messages.map((contact)=>{
+            if(props.contactUserName===contact.name){
+                setCurrentMessages([...currentMessages, { from: "me",time:messageTime, message: URL.createObjectURL(selectedImage),type:"image" }])
+                contact.messages.push({ from: "me", message: URL.createObjectURL(selectedImage),time:messageTime, type: "image" })
+            }
+        })
         props.setLastMessage("Image")
         setSelectedImage(null);
     }
@@ -114,7 +118,12 @@ export default function ChatMessages(props) {
         handleCloseVideoModal();
         var today = new Date();
         const messageTime = today.getHours() + ':' + today.getMinutes();
-        setItems([...chat_messages, { from: "me", message: URL.createObjectURL(selectedVideo),time:messageTime, type: "video" }]);
+        chat_messages.map((contact)=>{
+            if(props.contactUserName===contact.name){
+                setCurrentMessages([...currentMessages,  { from: "me", message: URL.createObjectURL(selectedVideo),time:messageTime, type: "video" }])
+                contact.messages.push( { from: "me", message: URL.createObjectURL(selectedVideo),time:messageTime, type: "video" })
+            }
+        })
         props.setLastMessage("Video")
         setSelectedVideo(null);
     }
