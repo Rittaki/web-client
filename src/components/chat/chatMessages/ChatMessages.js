@@ -19,7 +19,7 @@ export default function ChatMessages(props) {
     { from: "me", message: "i've waited months to see it!",time:"14:35", type: "text" }]},
 
     {name:(props.logInUserName==="Sara")?"Daniel":"Sara",messages:[{ from: "not", message: "Hey, wanna meet up? ",time:"17:09", type: "text" },
-    { from: "me", message: "I can't'",time:"18:09", type: "text" },
+    { from: "me", message: "I can't",time:"18:09", type: "text" },
     { from: "me", message: "I have to do homework in Advanced Programming 2",time:"18:10", type: "text"  }]},
 
     {name:(props.logInUserName==="Alice")?"Daniel":"Alice",messages:[{ from: "not", message: "Why did you blocked me in instagram? ",time:"00:09", type: "text" },

@@ -50,7 +50,7 @@ export default function Login() {
     },[errors]);
 
     if(isRedirect){
-        window.history.pushState(null, '', `/Chat-${userName}`);
+        window.history.pushState(null, '', `/Chat`);
         return (<Chat user={saveUser}/> )
     }
     return (
