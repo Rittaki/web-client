@@ -9,14 +9,29 @@ export default function ChatMessages(props) {
     const containerRef = useRef(null);
 
     const [input, setInput] = useState('');
-    const [chat_messages, setItems] = React.useState([{ from: "me", message: "Hey, whats up?",time:"12:07", type: "text" },
-    { from: "not", message: "Hey, have you seen the news?",time:"12:07", type: "text" },
-    { from: "me", message: "What's the news?",time:"12:07", type: "text" },
-    { from: "not", message: "Do you come to b-day party tonight?",time:"12:07", type: "text" },
+    const allMessages=[{name:(props.logInUserName==="Rita")?"Daniel":"Rita",messages:[{ from: "not", message: "Do you come to b-day party tonight?",time:"12:07", type: "text" },
     { from: "me", message: "Yes, sure!",time:"12:07", type: "text" },
-    { from: "not", message: "Cool, see you!",time:"12:07", type: "text" },
-    { from: "not", message: "Don't forget to bring the present!",time:"12:07", type: "text" }])
+    { from: "not", message: "Cool, see you!",time:"12:08", type: "text" },
+    { from: "not", message: "Don't forget to bring the present!", type: "text" }]},
 
+    {name:(props.logInUserName==="Moshe")?"Daniel":"Moshe",messages:[{ from: "not", message: "Hey you want to catch the new Spiderman movie?",time:"14:09", type: "text" },
+    { from: "me", message: "for sure",time:"14:35",type: "text" },
+    { from: "me", message: "i've waited months to see it!",time:"14:35", type: "text" }]},
+
+    {name:(props.logInUserName==="Sara")?"Daniel":"Sara",messages:[{ from: "not", message: "Hey, wanna meet up? ",time:"17:09", type: "text" },
+    { from: "me", message: "I can't'",time:"18:09", type: "text" },
+    { from: "me", message: "I have to do homework in Advanced Programming 2",time:"18:10", type: "text"  }]},
+
+    {name:(props.logInUserName==="Alice")?"Daniel":"Alice",messages:[{ from: "not", message: "Why did you blocked me in instagram? ",time:"00:09", type: "text" },
+    { from: "not", message: "i'm waiting for an answer",time:"03:09", type: "text" },
+    { from: "me", message: "stop texting me",time:"07:09", type: "text" }]},
+
+
+    {name:(props.logInUserName==="Bob")?"Daniel":"Bob",messages:[{ from: "not", message: "Hey, are you doing something this passover? ",time:"14:19", type: "text" },
+    { from: "me", message: "I will go on vacation",time:"14:29", type: "text" },
+    { from: "me", message: "i heard there are some new flights to Sinai",time:"14:29", type: "text" }]}]
+
+    const [chat_messages, setItems] = useState((props.newSign)?[]:allMessages);
     /* for images */
     const [show, setShow] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -29,6 +44,16 @@ export default function ChatMessages(props) {
     const handleCloseVideoModal = () => setShowVideoModal(false);
     const handleShowVideoModal = () => setShowVideoModal(true);
 
+    const elementFromChat_messages=chat_messages.filter((item)=>{
+        if(item.name===props.contactUserName){
+            return item;
+        }
+    }).map((filteredElement=>(
+        filteredElement.messages)
+    ));
+
+
+    const[currentMessages,setCurrentMessages]=useState([]);
 
     useEffect(() => {
 
@@ -41,13 +66,31 @@ export default function ChatMessages(props) {
             })
         }
 
-    }, [containerRef, chat_messages])
+    }, [containerRef, chat_messages,currentMessages])
+
+
+    useEffect(() => {
+        if(elementFromChat_messages.length!=0){
+            setCurrentMessages(elementFromChat_messages[0]);
+        }
+        else{
+            setCurrentMessages([]);
+            setItems([...chat_messages, { name:props.contactUserName,messages:[] }]);
+        }
+    }, [props.contactUserName])
+
+
 
     const showItem = () => {
         if (input === '') return;
         var today = new Date();
         const messageTime = today.getHours() + ':' + today.getMinutes();
-        setItems([...chat_messages, { from: "me",time:messageTime, message: input }])
+        chat_messages.map((contact)=>{
+            if(props.contactUserName===contact.name){
+                setCurrentMessages([...currentMessages, { from: "me",time:messageTime, message: input,type:"text" }])
+                contact.messages.push({ from: "me",time:messageTime, message: input,type:"text" })
+            }
+        })
         if(input.length>45){
             props.setLastMessage(input.slice(0, 45).concat("..."));
         }
@@ -80,7 +123,7 @@ export default function ChatMessages(props) {
         if (e.which === 13) showItem();
     }
 
-    const messagesList = chat_messages.map((contact, key) => {
+    const messagesList = currentMessages.map((contact, key) => {
         if (contact.from === "me") {
             return (
                 <div className="row">
@@ -127,13 +170,12 @@ export default function ChatMessages(props) {
             )
         }
     });
-
     return (
         <div className="help-div">
             <div className="current-contact">
                 <img className="profile-image" src={props.img} alt="icon"></img>
                 <span className="text">
-                    <h6 className="contact-name">{props.name}</h6>
+                    <h6 className="contact-name">{props.nickname}</h6>
                     <p className="text-muted quote">Throw kindness around like confetti</p>
                 </span>
             </div>

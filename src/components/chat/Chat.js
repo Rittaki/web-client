@@ -54,6 +54,7 @@ function Chat(props) {
     //last message update and time since
     const [lastMessage,setLastMessage]=useState("");
     const [minutes,setMinutes]=useState(0);
+    const [newSign,setNewSign]=useState(false);
 
 
     const elementFromContactChat=contact_chat.filter((item)=>{
@@ -64,10 +65,7 @@ function Chat(props) {
         filteredElement.info)
     ));
     
-    
     const[array,setArray]=useState((elementFromContactChat.length!=0)?elementFromContactChat[0]:[]);
-
-
     const filteredData = array.filter((contact) => {
         if (search === '') {
             return contact;
@@ -136,6 +134,9 @@ function Chat(props) {
     }
 
     useEffect(()=>{
+        if(array.length==0){
+            setNewSign(true)
+        }
         if(addContactSubmit && !inDatabase){
             setNewContactError("can't find user");
         }
@@ -240,7 +241,7 @@ function Chat(props) {
 
                 <div className="col-md-7 chat-colomn" >
 
-                    {(selectedContact.name) ?(<ChatMessages user={props.user} contactUserName={selectedContact.name} nickname ={selectedContact.nickName} img={selectedContact.image} setLastMessage={setLastMessage} />)
+                    {(selectedContact.name) ?(<ChatMessages newSign={newSign} logInUserName={props.user.userName} contactUserName={selectedContact.name} nickname ={selectedContact.nickName} img={selectedContact.image} setLastMessage={setLastMessage} />)
                         : <div className="select-text">Select a chat to start messaging</div>}
                 </div>
             </div>
