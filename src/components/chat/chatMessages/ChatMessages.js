@@ -7,6 +7,10 @@ import VideoModal from "../uploadModals/VideoModal";
 import RecordingModal from "../uploadModals/RecordingModal";
 
 export default function ChatMessages(props) {
+
+
+    const [load, setLoad] = useState(false);
+
     const containerRef = useRef(null);
 
     const [input, setInput] = useState('');
@@ -48,7 +52,6 @@ export default function ChatMessages(props) {
     const [selectedImage, setSelectedImage] = useState(null);
     const handleCloseImageModal = () => setShow(false);
     const handleShowImageModal = () => setShow(true);
-
     /* for video */
     const [showVideoModal, setShowVideoModal] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
@@ -73,7 +76,6 @@ export default function ChatMessages(props) {
     const [currentMessages, setCurrentMessages] = useState([]);
 
     useEffect(() => {
-
         if (containerRef && containerRef.current) {
             const element = containerRef.current;
             element.scroll({
@@ -81,9 +83,10 @@ export default function ChatMessages(props) {
                 left: 0,
                 behavior: "smooth"
             })
+            setLoad(false)
         }
 
-    }, [containerRef, chat_messages, currentMessages])
+    }, [containerRef, chat_messages, currentMessages,load])
 
 
     useEffect(() => {
@@ -171,14 +174,14 @@ export default function ChatMessages(props) {
                         {(() => {
                             if (contact.type === "image") {
                                 return (
-                                    <div className="chat-bubble chat-bubble--right"><img alt="not found" width={"200px"} src={contact.message} />
+                                    <div className="chat-bubble chat-bubble--right"><img alt="not found" width={"200px"} src={contact.message} onLoad={()=>setLoad(true)}/>
                                         <span className="time text-muted small">{contact.time}</span></div>
                                 )
                             } else if (contact.type === "video") {
                                 return (
                                     <div className="chat-bubble chat-bubble--right">
                                         <video width={"400px"} controls>
-                                            <source src={contact.message} type="video/mp4" />
+                                            <source src={contact.message} type="video/mp4" onLoad={()=>setLoad(true)}/>
                                         </video>
                                         <span className="time text-muted small">{contact.time}</span></div>
                                 )

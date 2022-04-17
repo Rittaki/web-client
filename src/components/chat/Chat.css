@@ -233,6 +233,7 @@ div.container-fluid.chat {
 }
 .contacts-container{
     overflow-y: scroll;
+    overflow-x: hidden;
     max-height: 55vh;
 }
 .error{
