@@ -1,7 +1,9 @@
 import React from "react";
 import { Modal, Button } from 'react-bootstrap';
+import { useState } from 'react';
 
 export default function ImageModal(props) {
+    const [goodInput, setGoodInput] = useState(false);
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
@@ -9,10 +11,16 @@ export default function ImageModal(props) {
             </Modal.Header>
 
             <Modal.Body>
-                Upload an image from your computer
-                {props.image && (
+                {goodInput && (<div>Upload an image from your computer</div>)}
+                {props.image && goodInput && (
                     <div>
                         <img alt="not found" width={"250px"} src={URL.createObjectURL(props.image)} />
+                        <br />
+                    </div>
+                )}
+                {!goodInput && (
+                    <div>
+                        Please choose an <b>image</b> file.
                         <br />
                     </div>
                 )}
@@ -21,8 +29,14 @@ export default function ImageModal(props) {
                 <input type="file"
                     name="myImage"
                     onChange={(event) => {
-                        props.setImage(event.target.files[0]);
-                        console.log(event.target.files[0]);
+                        if (event.target.files[0].type[0] === "i") {
+                            props.setImage(event.target.files[0]);
+                            console.log(event.target.files[0]);
+                            setGoodInput(true);
+                        } else {
+                            console.log("not good input");
+                            setGoodInput(false);
+                        }
                     }} />
             </Modal.Body>
 
@@ -30,9 +44,9 @@ export default function ImageModal(props) {
                 <Button variant="secondary" onClick={props.onHide}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={props.showImage}>
+                {goodInput && <Button variant="primary" onClick={props.showImage}>
                     Save Changes
-                </Button>
+                </Button>}
             </Modal.Footer>
         </Modal>
     );

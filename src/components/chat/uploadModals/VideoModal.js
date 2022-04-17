@@ -1,19 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button } from 'react-bootstrap';
 
 export default function VideoModal(props) {
+    const [goodInput, setGoodInput] = useState(true);
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
                 <Modal.Title>Add video</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Upload a video from your computer
-                {props.video && (
+                {goodInput && (<div>Upload a video from your computer</div>)}
+                {props.video && goodInput && (
                     <div>
+                        <br />
                         <video width={"400px"} controls>
                             <source src={URL.createObjectURL(props.video)} type="video/mp4" />
                         </video>
+                        <br />
+                    </div>
+                )}
+                {!goodInput && (
+                    <div>
+                        Please choose a <b>video</b> file.
                         <br />
                     </div>
                 )}
@@ -22,8 +30,14 @@ export default function VideoModal(props) {
                 <input type="file"
                     name="myVideo"
                     onChange={(event) => {
-                        props.setVideo(event.target.files[0]);
-                        console.log(event.target.files[0]);
+                        if (event.target.files[0].type[0] === "v") {
+                            props.setVideo(event.target.files[0]);
+                            console.log(event.target.files[0]);
+                            setGoodInput(true);
+                        } else {
+                            console.log("not good input");
+                            setGoodInput(false);
+                        }
                     }} />
 
             </Modal.Body>
@@ -31,9 +45,9 @@ export default function VideoModal(props) {
                 <Button variant="secondary" onClick={props.onHide}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={props.showVideo}>
+                {goodInput && <Button variant="primary" onClick={props.showVideo}>
                     Save Changes
-                </Button>
+                </Button>}
             </Modal.Footer>
         </Modal>
     );
