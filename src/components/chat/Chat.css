@@ -239,3 +239,15 @@ div.container-fluid.chat {
 .error{
     color:red
 }
+.contacts-map .selected-text-muted {
+    width: 90%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.contacts-map .text-muted {
+    width: 90%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -65,6 +65,8 @@
 .chat-bubble--right>.text-muted {
     background: rgb(203, 240, 255);
     direction: ltr;
+    max-width: 350px;
+    word-wrap: break-word;
 }
 
 .chat-bubble--right>.time {
