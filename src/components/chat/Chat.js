@@ -213,7 +213,7 @@ function Chat(props) {
                 <div className="col-md-5 contacts-colomn">
                     <div className="profile-panel">
                         <img className="profile-image" src={saveUser.picture} alt="icon"></img>
-                        <span className="profile-name">{saveUser.userName}</span>
+                        <span className="profile-name">{saveUser.nickName}</span>
                         <span className="add-contact" onClick={handleShow}>
                             <i className="bi bi-person-plus float-end"></i>
                         </span>

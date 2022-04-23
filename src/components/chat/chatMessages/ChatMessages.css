@@ -50,7 +50,7 @@
 .chat-panel {
     display: inherit;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 55vh;
 }
 
