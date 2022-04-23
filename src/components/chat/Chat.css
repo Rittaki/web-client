@@ -257,7 +257,7 @@ div.container-fluid.chat {
 @media only screen and (max-width:767px) and (min-width: 0px) {
     .row.chat{
         width:90vw;
-        margin-left: 5% !important;
+        margin-left:2% !important;
     }
     
     .col-md-7.chat-colomn{
@@ -276,8 +276,8 @@ div.container-fluid.chat {
 
   @media only screen and (max-width:1100px) and (min-width: 768px){
     .row.chat{
-        width:90vw;
-        margin-left: 2% !important;
+        width:98vw;
+        margin-left: 0% !important;
     }
     .contacts-container{
         overflow-x: auto !important;
