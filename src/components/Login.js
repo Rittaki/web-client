@@ -1,7 +1,7 @@
 import './Login.css';
 import { useState, useEffect } from 'react';
 import Chat from './chat/Chat';
-import { useNavigate, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 
 export default function Login() {
@@ -12,7 +12,6 @@ export default function Login() {
     const[isSubmit, setIsSubmit]=useState(false);
     const[isRedirect, setIsRedirect]=useState(false);
     const[saveUser,setSaveUser]=useState({});
-    let navigate = useNavigate();
 
     const sunbmitFun = (e) => {
         e.preventDefault();

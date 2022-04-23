@@ -73,15 +73,17 @@ export default function ChatMessages(props) {
     ));
 
 
+
     const [currentMessages, setCurrentMessages] = useState([]);
 
     useEffect(() => {
         if (containerRef && containerRef.current) {
             const element = containerRef.current;
+            console.log(element)
             element.scroll({
                 top: element.scrollHeight,
                 left: 0,
-                behavior: "smooth"
+                behavior: "smooth",
             })
             setLoad(false)
         }
@@ -180,16 +182,17 @@ export default function ChatMessages(props) {
                             } else if (contact.type === "video") {
                                 return (
                                     <div className="chat-bubble chat-bubble--right">
-                                        <video width={"400px"} controls>
-                                            <source src={contact.message} type="video/mp4" onLoad={()=>setLoad(true)}/>
+                                        <video width={"400px"} controls onLoadedData={()=>setLoad(true)} >
+                                            <source src={contact.message} type="video/mp4"/>
                                         </video>
-                                        <span className="time text-muted small">{contact.time}</span></div>
+                                        <span className="time text-muted small">{contact.time}</span>
+                                        </div>
                                 )
                             }
                             else if (contact.type === "record") {
                                 return (
                                     <div className="chat-bubble chat-bubble--right">
-                                        <audio controlsList="nodownload" controls>
+                                        <audio controlsList="nodownload" controls onLoadedData={()=>setLoad(true)}>
                                             <source src={contact.message} type="audio/mpeg" />
                                         </audio>
 
