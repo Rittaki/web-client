@@ -199,15 +199,13 @@
     }
 }
 
-@media only screen and (max-width:772px) and (min-width: 0px) {
-    .chat-panel{
-        overflow-x: auto !important;
-    }
-  }
 
 
   @media only screen and (max-width:239px) and (min-width: 0px) {
     .chat-bubble--right>.text-muted{
+        max-width: 100px ;
+    }
+    .chat-bubble--left>.text-muted{
         max-width: 100px ;
     }
   }
@@ -216,10 +214,16 @@
     .chat-bubble--right>.text-muted{
         max-width: 150px ;
     }
+    .chat-bubble--left>.text-muted{
+        max-width: 150px ;
+    }
   }
 
   @media only screen and (max-width:460px) and (min-width: 340px) {
     .chat-bubble--right>.text-muted{
+        max-width: 250px ;
+    }
+    .chat-bubble--left>.text-muted{
         max-width: 250px ;
     }
   }

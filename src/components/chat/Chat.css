@@ -252,6 +252,14 @@ div.container-fluid.chat {
     text-overflow: ellipsis;
 
 }
+.contacts-map{
+    position: relative;
+}
+.contacts-map .time-text-muted-small{
+      font-size:medium;
+      right:2%;
+      position: absolute;
+  }
 
 
 
@@ -270,9 +278,6 @@ div.container-fluid.chat {
        margin-bottom:5%;
 
     }
-        .contacts-container{
-        overflow-x: auto !important;
-    }
   }
 
   @media only screen and (max-width:1100px) and (min-width: 768px){
@@ -280,13 +285,4 @@ div.container-fluid.chat {
         width:98vw;
         margin-left: 0% !important;
     }
-    .contacts-container{
-        overflow-x: auto !important;
-    }
   }
-
-  @media only screen and (max-width:899px) and (min-width: 0px){
-      .time-text-muted-small{
-          font-size: small;
-      }
-}
