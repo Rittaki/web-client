@@ -28,3 +28,11 @@ This will automatically download the necessary dependencies of the project.
 
 Open the folder: WEB-CLIENT in the terminal with "cd WEB-CLIENT".  
 Run the project from that folder with "npm start"  
+
+
+## User
+In order to login with an existing user use one of the following options:  
+- username: Daniel, password:123  
+- username: Rita, password:789  
+
+In order to add a contact to one of these users add the username:"Eden".  
