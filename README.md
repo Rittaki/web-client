@@ -1,4 +1,4 @@
-# Chat app Project- Margarita Kilinkarov,Daniel Tal
+# Chat app Project- Margarita Kilinkarov, Daniel Tal
 
 Chat app that include 3 pages: Login, Signup, Chat.  
 The app was built using react and contains the client side.  
