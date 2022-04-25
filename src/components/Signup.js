@@ -13,17 +13,27 @@ function Signup() {
     const[errors, setErrors ]=useState({})
     const[isSubmit, setIsSubmit]=useState(false);
     const[isRedirect, setIsRedirect]=useState(false);
+    const[invalidImage, setInvalidImage]=useState(false);
     
+    //checks values when log in clicked
     const sunbmitFun = (e) => {
         e.preventDefault();
         setIsSubmit(true);
         setErrors(checkErrors(username,password,nickname,repeatPassword,picture))
     };
 
+    //handle uploaded pictures
     function handlePicture(e) {
-        SetPicture(URL.createObjectURL(e.target.files[0]));
+        if(e.target.files[0].type[0] === "i") {
+            setInvalidImage(false);
+            SetPicture(URL.createObjectURL(e.target.files[0]));
+        }
+        else{
+            setInvalidImage(true);
+        }
     }
 
+    //checking errors in entered values
     const checkErrors=(username,password,nickname,repeatPassword,picture)=>{
         const errors={}
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
@@ -51,11 +61,15 @@ function Signup() {
         if(picture==="blank.png"){
             errors.picture = "picture is required";
         }
+        if(invalidImage){
+            errors.picture = "invalid picture";
+        }
         return errors;
 
     };
 
 
+    //checks if there are no errors and if so the new registered user is added to hardcoded database
     useEffect(()=>{
         if(Object.keys(errors).length===0 && isSubmit){
             setIsRedirect(true)
@@ -64,19 +78,19 @@ function Signup() {
         
     },);
 
+    //redirects to chat if necessary
     if(isRedirect){
         window.history.pushState(null, '', `/Chat`);
         return (<Chat user={{userName : username , nickName: nickname , picture : picture , password: password}}/> )
     }
 
-
-
+    //compares the entered username against hardcoded database
     function compareUserList(item,errors){
         if(item.userName===username){
             errors.username="Username is taken"
         }
     }
-    //userList.push({userName : username , nickName: nickname , picture : picture , password: password})
+
     return (
         <div className="container-fluid">
             <div className="row">

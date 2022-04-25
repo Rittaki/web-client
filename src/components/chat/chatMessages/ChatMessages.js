@@ -7,46 +7,50 @@ import VideoModal from "../uploadModals/VideoModal";
 import RecordingModal from "../uploadModals/RecordingModal";
 
 export default function ChatMessages(props) {
-
-
     const [load, setLoad] = useState(false);
-
     const containerRef = useRef(null);
-
     const [input, setInput] = useState('');
+    //hardcoded array of all the messages 
     const allMessages = [{
-        name: (props.logInUserName === "Rita") ? "Daniel" : "Rita", messages: [{ from: "not", message: "Do you come to b-day party tonight?", time: "12:07", type: "text" },
+        name: (props.logInUserName === "Rita") ? "Daniel" : "Rita", messages: [
+        { from: "not", message: "Do you come to b-day party tonight?", time: "12:07", type: "text" },
+        { from: "me", message: "./images/birthday.png", time: "12:07", type: "image" },
         { from: "me", message: "Yes, sure!", time: "12:07", type: "text" },
-        { from: "not", message: "Cool, see you!", time: "12:08", type: "text" },
-        { from: "not", message: "Don't forget to bring the present!", type: "text" }]
+        { from: "me", message: "./records/birthday.mp3", time: "12:08", type: "record" },
+        { from: "not", message: "Don't forget to bring the present!",time: "12:08", type: "text" }]
     },
-
     {
-        name: (props.logInUserName === "Moshe") ? "Daniel" : "Moshe", messages: [{ from: "not", message: "Hey you want to catch the new Spiderman movie?", time: "14:09", type: "text" },
+        name: (props.logInUserName === "Moshe") ? "Daniel" : "Moshe", messages: [
+        { from: "not", message: "Hey you want to catch the new Spiderman movie?", time: "14:09", type: "text" },
         { from: "me", message: "for sure", time: "14:35", type: "text" },
+        { from: "me", message: "./videos/video1.mp4", time: "08:07", type: "video" },
         { from: "me", message: "i've waited months to see it!", time: "14:35", type: "text" }]
     },
-
     {
-        name: (props.logInUserName === "Sara") ? "Daniel" : "Sara", messages: [{ from: "not", message: "Hey, wanna meet up? ", time: "17:09", type: "text" },
+        name: (props.logInUserName === "Sara") ? "Daniel" : "Sara", messages: [
+        { from: "not", message: "Hey, wanna meet up? ", time: "17:09", type: "text" },
         { from: "me", message: "I can't", time: "18:09", type: "text" },
+        { from: "me", message: "./records/song.mp3", time: "18:09", type: "record" },
         { from: "me", message: "I have to do homework in Advanced Programming 2", time: "18:10", type: "text" }]
     },
-
     {
-        name: (props.logInUserName === "Alice") ? "Daniel" : "Alice", messages: [{ from: "not", message: "Why did you blocked me in instagram? ", time: "00:09", type: "text" },
+        name: (props.logInUserName === "Alice") ? "Daniel" : "Alice", messages: [
+        { from: "not", message: "Why did you blocked me in instagram? ", time: "00:09", type: "text" },
         { from: "not", message: "i'm waiting for an answer", time: "03:09", type: "text" },
+        { from: "me", message: "./videos/video2.mp4", time: "12:07", type: "video" },
         { from: "me", message: "stop texting me", time: "07:09", type: "text" }]
     },
 
-
     {
-        name: (props.logInUserName === "Bob") ? "Daniel" : "Bob", messages: [{ from: "not", message: "Hey, are you doing something this passover? ", time: "14:19", type: "text" },
+        name: (props.logInUserName === "Bob") ? "Daniel" : "Bob", messages: [
+        { from: "not", message: "Hey, are you doing something this passover? ", time: "14:19", type: "text" },
         { from: "me", message: "I will go on vacation", time: "14:29", type: "text" },
+        { from: "me", message: "./images/cool.png", time: "14:29", type: "image" },
         { from: "me", message: "i heard there are some new flights to Sinai", time: "14:29", type: "text" }]
     }]
-
+    //for showing messages
     const [chat_messages, setItems] = useState((props.newSign) ? [] : allMessages);
+    const [currentMessages, setCurrentMessages] = useState([]);
     /* for images */
     const [show, setShow] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -57,13 +61,13 @@ export default function ChatMessages(props) {
     const [selectedVideo, setSelectedVideo] = useState(null);
     const handleCloseVideoModal = () => setShowVideoModal(false);
     const handleShowVideoModal = () => setShowVideoModal(true);
-
     /* for record */
     const [showRecordModal, setShowRecordModal] = useState(false);
     const [selectedRecord, setSelectedRecord] = useState(null);
     const handleCloseRecordModal = () => setShowRecordModal(false);
     const handleShowRecordModal = () => setShowRecordModal(true);
 
+    //filters the correct messages with current contact
     const elementFromChat_messages = chat_messages.filter((item) => {
         if (item.name === props.contactUserName) {
             return item;
@@ -71,11 +75,8 @@ export default function ChatMessages(props) {
     }).map((filteredElement => (
         filteredElement.messages)
     ));
-
-
-
-    const [currentMessages, setCurrentMessages] = useState([]);
-
+    
+    //for scrolling to the bottom of chat panel
     useEffect(() => {
         if (containerRef && containerRef.current) {
             const element = containerRef.current;
@@ -90,7 +91,7 @@ export default function ChatMessages(props) {
 
     }, [containerRef, chat_messages, currentMessages,load])
 
-
+    //changes the shown messages every time different contact is chosen
     useEffect(() => {
         if (elementFromChat_messages.length != 0) {
             setCurrentMessages(elementFromChat_messages[0]);
@@ -103,6 +104,7 @@ export default function ChatMessages(props) {
 
 
 
+    //shows the time of sending messages
     const showItem = () => {
         if (input === '') return;
         var today = new Date();
@@ -113,15 +115,11 @@ export default function ChatMessages(props) {
                 contact.messages.push({ from: "me", time: messageTime, message: input, type: "text" })
             }
         })
-        if (input.length > 45) {
-            props.setLastMessage(input.slice(0, 45).concat("..."));
-        }
-        else {
-            props.setLastMessage(input)
-        }
+        props.setLastMessage(input)
         setInput('');
     }
 
+    //for adding images
     const showImage = () => {
         handleCloseImageModal();
         var today = new Date();
@@ -136,6 +134,7 @@ export default function ChatMessages(props) {
         setSelectedImage(null);
     }
 
+    //for adding videos
     const showVideoFunc = () => {
         handleCloseVideoModal();
         var today = new Date();
@@ -150,6 +149,7 @@ export default function ChatMessages(props) {
         setSelectedVideo(null);
     }
 
+    //for adding records
     const showRecordFunc = () => {
         handleCloseRecordModal();
         var today = new Date();
@@ -163,10 +163,12 @@ export default function ChatMessages(props) {
         props.setLastMessage("Record")
         setSelectedRecord(null);
     }
+
     const enterKey = (e) => {
         if (e.which === 13) showItem();
     }
 
+    //shows all the messages
     const messagesList = currentMessages.map((contact, key) => {
         if (contact.from === "me") {
             return (

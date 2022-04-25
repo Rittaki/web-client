@@ -13,6 +13,7 @@ export default function Login() {
     const[isRedirect, setIsRedirect]=useState(false);
     const[saveUser,setSaveUser]=useState({});
 
+    //checks values when log in clicked
     const sunbmitFun = (e) => {
         e.preventDefault();
         setIsSubmit(true);
@@ -20,6 +21,7 @@ export default function Login() {
         userList.map((item)=>compare(item));
     };
 
+    //checking errors in entered values
     const checkErrors=(userName,password)=>{
         const errors={}
         if(!userName){
@@ -32,12 +34,15 @@ export default function Login() {
 
     };
 
+    //compares the entered values against hardcoded database
     function compare(item){
         if(item.userName===userName && item.password===password ){
                 setIsFound(true);
                 setSaveUser(item);
         }
     }
+
+    //checks if there are no errors and user found in database
     useEffect(()=>{
         if(Object.keys(errors).length===0 && isFound){
             setIsRedirect(true);
@@ -48,6 +53,7 @@ export default function Login() {
         }
     },[errors]);
 
+    //redirects to chat if necessary
     if(isRedirect){
         window.history.pushState(null, '', `/Chat`);
         return (<Chat user={saveUser}/> )
@@ -82,6 +88,8 @@ export default function Login() {
         </div>
     );
 }
+
+//hardcoded list of users
 export const userList = [
     {userName : "Daniel" , nickName: "daniel" , picture : "./images/cat1.png" , password: "123"},,
     {userName : "Rita" , nickName: "rita" , picture : "./images/cat2.png" , password: "789"},

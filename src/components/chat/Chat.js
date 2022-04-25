@@ -7,6 +7,7 @@ import ChatMessages from './chatMessages/ChatMessages';
 
 function Chat(props) {
 
+    //hardcoded list of contacts
     const contact_chat = [{user:"Rita",info:[{ name: "Daniel",nickName:"daniel", message: "Don't forget to bring the present!",time:58, image: "./images/cat1.png" },
     { name: "Moshe",nickName:"moshe", message: "i've waited months to see it!",time:63, image: "./images/cat3.png" },
     { name: "Sara",nickName:"sara", message: "I have to do homework in Advanced Programming 2",time:128, image: "./images/cat4.png" },
@@ -39,11 +40,9 @@ function Chat(props) {
     { name: "Rita",nickName:"rita", message: "Don't forget to bring the present!",time:5, image: "./images/cat2.png" }]}
 ];
 
-
-
     const [selectedContact, SetSelectedContact] = useState({});
+    //for search bar
     const[search, setSearch]=useState("");
-    
     //for adding new contact
     const [newContact, setNewContact] = useState("");
     const[inDatabase, setInDatabase] = useState(false);
@@ -55,11 +54,12 @@ function Chat(props) {
     //last message update and time since
     const [lastMessage,setLastMessage]=useState("");
     const [minutes,setMinutes]=useState(0);
-
+    //info about the current user
     const [newSign,setNewSign]=useState(false);
     const [saveUser, setSaveUser] = useState((props.user===undefined)?JSON.parse(localStorage.getItem('user')):props.user);
     
 
+    //filters contacts for the current user
     const elementFromContactChat=contact_chat.filter((item)=>{
         if(item.user===saveUser.userName){
             return item;
@@ -67,8 +67,10 @@ function Chat(props) {
     }).map((filteredElement=>(
         filteredElement.info)
     ));
-    
+    //contacts of current user
     const[array,setArray]=useState((elementFromContactChat.length!=0)?elementFromContactChat[0]:[]);
+    
+    //for searching contacts
     const filteredData = array.filter((contact) => {
         if (search === '') {
             return contact;
@@ -77,13 +79,13 @@ function Chat(props) {
             return contact;
         }
     })
+    //for clicking on contact from the list of contacts
     const handleClick = (contact) => {
         SetSelectedContact(contact);
     }
 
 
-    
-
+    //showing all the contacts the user has
     const chatList = filteredData.map((contact, key) => {
         return (
             <div className="contacts-map">
@@ -108,6 +110,7 @@ function Chat(props) {
         display: 'block',
     }
 
+    //showing window of adding contact
     const handleShow = () => setShow(true);
     const handleClose = ()=> {
         setShow(false);
@@ -118,6 +121,7 @@ function Chat(props) {
         setAddContactSubmit(false);
     } ;
 
+    //checks if added contact is valid without checking database
     const handleAddContact=()=>{
         setAddContactSubmit(true);
         setInDatabase(false);
@@ -136,6 +140,7 @@ function Chat(props) {
         }
     }
 
+    //checking if added contact is in the user database but not already a contact
     useEffect(()=>{
         if(array.length==0){
             setNewSign(true)
@@ -154,6 +159,7 @@ function Chat(props) {
 
 
 
+    //changes last message in contact panel when a message is sent and moving the contact to the top of the contact list
     useEffect(()=>{
         if(lastMessage!=""){
             array.map((contact)=>{
@@ -172,6 +178,7 @@ function Chat(props) {
         }
     },[lastMessage])
 
+    //updating the time since last message every minute
     useEffect(() => {
         const interval = setInterval(() => {
             array.map((contact)=>{
@@ -184,10 +191,12 @@ function Chat(props) {
       }, []);
 
 
+      //renders every time minute passes so the changes in time since last message will appear
       useEffect(() => {
       }, [minutes]);
 
 
+      //saves user info so in case of a refresh it will stay in his chat page
       useEffect(() => {
           if(props.user!=undefined){
             localStorage.setItem('user', JSON.stringify(props.user))
@@ -196,12 +205,15 @@ function Chat(props) {
       
 
 
+    //checks if added contact appears in users database
     function compareUserList(item){
         if(item.userName===newContact){
             setInDatabase(true);
             setCurrentContact(item);
         }
     }
+
+    //checks if added contact is already a contact of current user
     function compareContacts(item){
         if(item.name===newContact){
             setIsContact(true);
