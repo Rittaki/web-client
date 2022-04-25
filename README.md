@@ -1,7 +1,7 @@
 # Chat app Project- Margarita Kilinkarov,Daniel Tal
 
-Chat app that include 3 pages: Login, Signup, Chat.
-The app was built using react and contains the client side.
+Chat app that include 3 pages: Login, Signup, Chat.  
+The app was built using react and contains the client side.  
 
 ## Packages used
 - bootstrap
@@ -12,19 +12,19 @@ The app was built using react and contains the client side.
 
 ### `git clone`
 
-Clone the repository:
-Open the folder you want to locally download the project to.
-Write the following line in the terminal:
-git clone https://github.com/Rittaki/web-client.git
+Clone the repository:  
+Open the folder you want to locally download the project to.  
+Write the following line in the terminal:  
+git clone https://github.com/Rittaki/web-client.git  
 
 ### `download the needed packages`
 
-Write the following lines in the terminal:
-npm i
-This will automatically download the necessary dependencies of the project.
+Write the following lines in the terminal:  
+npm i  
+This will automatically download the necessary dependencies of the project.  
 
 
 ### `run project`
 
-Open the folder: WEB-CLIENT in the terminal with "cd WEB-CLIENT".
-Run the project from that folder with "npm start"
+Open the folder: WEB-CLIENT in the terminal with "cd WEB-CLIENT".  
+Run the project from that folder with "npm start"  
