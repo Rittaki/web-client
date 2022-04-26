@@ -86,7 +86,6 @@ export default function ChatMessages(props) {
     useEffect(() => {
         if (containerRef && containerRef.current) {
             const element = containerRef.current;
-            console.log(element)
             element.scroll({
                 top: element.scrollHeight,
                 left: 0,
