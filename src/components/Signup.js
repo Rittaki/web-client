@@ -9,7 +9,7 @@ function Signup() {
     const [password , setPassword] =useState("");
     const [repeatPassword , setRepeatPassword] =useState("");
     const [nickname , setNickname] =useState("");
-    const [picture, SetPicture]=useState("blank.png");
+    const [picture, SetPicture]=useState("./images/blank.png");
     const[errors, setErrors ]=useState({})
     const[isSubmit, setIsSubmit]=useState(false);
     const[isRedirect, setIsRedirect]=useState(false);
