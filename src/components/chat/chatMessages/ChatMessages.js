@@ -5,6 +5,7 @@ import "./ChatMessages.css";
 import ImageModal from "../uploadModals/ImageModal";
 import VideoModal from "../uploadModals/VideoModal";
 import RecordingModal from "../uploadModals/RecordingModal";
+import AudioModal from "../uploadModals/AudioModal";
 
 export default function ChatMessages(props) {
     const [load, setLoad] = useState(false);
@@ -13,40 +14,40 @@ export default function ChatMessages(props) {
     //hardcoded array of all the messages 
     const allMessages = [{
         name: (props.logInUserName === "Rita") ? "Daniel" : "Rita", messages: [
-        { from: "not", message: "Do you come to b-day party tonight?", time: "12:07", type: "text" },
-        { from: "me", message: "./images/birthday.png", time: "12:07", type: "image" },
-        { from: "me", message: "Yes, sure!", time: "12:07", type: "text" },
-        { from: "me", message: "./records/birthday.mp3", time: "12:08", type: "record" },
-        { from: "not", message: "Don't forget to bring the present!",time: "12:08", type: "text" }]
+            { from: "not", message: "Do you come to b-day party tonight?", time: "12:07", type: "text" },
+            { from: "me", message: "./images/birthday.png", time: "12:07", type: "image" },
+            { from: "me", message: "Yes, sure!", time: "12:07", type: "text" },
+            { from: "me", message: "./records/birthday.mp3", time: "12:08", type: "record" },
+            { from: "not", message: "Don't forget to bring the present!", time: "12:08", type: "text" }]
     },
     {
         name: (props.logInUserName === "Moshe") ? "Daniel" : "Moshe", messages: [
-        { from: "not", message: "Hey you want to catch the new Spiderman movie?", time: "14:09", type: "text" },
-        { from: "me", message: "for sure", time: "14:35", type: "text" },
-        { from: "me", message: "./videos/video1.mp4", time: "08:07", type: "video" },
-        { from: "me", message: "i've waited months to see it!", time: "14:35", type: "text" }]
+            { from: "not", message: "Hey you want to catch the new Spiderman movie?", time: "14:09", type: "text" },
+            { from: "me", message: "for sure", time: "14:35", type: "text" },
+            { from: "me", message: "./videos/video1.mp4", time: "08:07", type: "video" },
+            { from: "me", message: "i've waited months to see it!", time: "14:35", type: "text" }]
     },
     {
         name: (props.logInUserName === "Sara") ? "Daniel" : "Sara", messages: [
-        { from: "not", message: "Hey, wanna meet up? ", time: "17:09", type: "text" },
-        { from: "me", message: "I can't", time: "18:09", type: "text" },
-        { from: "me", message: "./records/song.mp3", time: "18:09", type: "record" },
-        { from: "me", message: "I have to do homework in Advanced Programming 2", time: "18:10", type: "text" }]
+            { from: "not", message: "Hey, wanna meet up? ", time: "17:09", type: "text" },
+            { from: "me", message: "I can't", time: "18:09", type: "text" },
+            { from: "me", message: "./records/song.mp3", time: "18:09", type: "record" },
+            { from: "me", message: "I have to do homework in Advanced Programming 2", time: "18:10", type: "text" }]
     },
     {
         name: (props.logInUserName === "Alice") ? "Daniel" : "Alice", messages: [
-        { from: "not", message: "Why did you blocked me in instagram? ", time: "00:09", type: "text" },
-        { from: "not", message: "i'm waiting for an answer", time: "03:09", type: "text" },
-        { from: "me", message: "./videos/video2.mp4", time: "12:07", type: "video" },
-        { from: "me", message: "stop texting me", time: "07:09", type: "text" }]
+            { from: "not", message: "Why did you blocked me in instagram? ", time: "00:09", type: "text" },
+            { from: "not", message: "i'm waiting for an answer", time: "03:09", type: "text" },
+            { from: "me", message: "./videos/video2.mp4", time: "12:07", type: "video" },
+            { from: "me", message: "stop texting me", time: "07:09", type: "text" }]
     },
 
     {
         name: (props.logInUserName === "Bob") ? "Daniel" : "Bob", messages: [
-        { from: "not", message: "Hey, are you doing something this passover? ", time: "14:19", type: "text" },
-        { from: "me", message: "I will go on vacation", time: "14:29", type: "text" },
-        { from: "me", message: "./images/cool.png", time: "14:29", type: "image" },
-        { from: "me", message: "i heard there are some new flights to Sinai", time: "14:29", type: "text" }]
+            { from: "not", message: "Hey, are you doing something this passover? ", time: "14:19", type: "text" },
+            { from: "me", message: "I will go on vacation", time: "14:29", type: "text" },
+            { from: "me", message: "./images/cool.png", time: "14:29", type: "image" },
+            { from: "me", message: "i heard there are some new flights to Sinai", time: "14:29", type: "text" }]
     }]
     //for showing messages
     const [chat_messages, setItems] = useState((props.newSign) ? [] : allMessages);
@@ -66,6 +67,11 @@ export default function ChatMessages(props) {
     const [selectedRecord, setSelectedRecord] = useState(null);
     const handleCloseRecordModal = () => setShowRecordModal(false);
     const handleShowRecordModal = () => setShowRecordModal(true);
+    /* for audio messages */
+    const [showAudioModal, setShowAudioModal] = useState(false);
+    const [selectedAudio, setSelectedAudio] = useState(null);
+    const handleCloseAudioModal = () => setShowAudioModal(false);
+    const handleShowAudioModal = () => setShowAudioModal(true);
 
     //filters the correct messages with current contact
     const elementFromChat_messages = chat_messages.filter((item) => {
@@ -75,7 +81,7 @@ export default function ChatMessages(props) {
     }).map((filteredElement => (
         filteredElement.messages)
     ));
-    
+
     //for scrolling to the bottom of chat panel
     useEffect(() => {
         if (containerRef && containerRef.current) {
@@ -89,7 +95,7 @@ export default function ChatMessages(props) {
             setLoad(false)
         }
 
-    }, [containerRef, chat_messages, currentMessages,load])
+    }, [containerRef, chat_messages, currentMessages, load])
 
     //changes the shown messages every time different contact is chosen
     useEffect(() => {
@@ -141,6 +147,7 @@ export default function ChatMessages(props) {
         const messageTime = today.getHours() + ':' + today.getMinutes();
         chat_messages.map((contact) => {
             if (props.contactUserName === contact.name) {
+                console.log(selectedVideo);
                 setCurrentMessages([...currentMessages, { from: "me", message: URL.createObjectURL(selectedVideo), time: messageTime, type: "video" }])
                 contact.messages.push({ from: "me", message: URL.createObjectURL(selectedVideo), time: messageTime, type: "video" })
             }
@@ -156,12 +163,29 @@ export default function ChatMessages(props) {
         const messageTime = today.getHours() + ':' + today.getMinutes();
         chat_messages.map((contact) => {
             if (props.contactUserName === contact.name) {
+                console.log(selectedRecord);
                 setCurrentMessages([...currentMessages, { from: "me", message: selectedRecord, time: messageTime, type: "record" }])
                 contact.messages.push({ from: "me", message: selectedRecord, time: messageTime, type: "record" })
             }
         })
         props.setLastMessage("Record")
         setSelectedRecord(null);
+    }
+
+    //for adding audio
+    const showAudioFunc = () => {
+        handleCloseAudioModal();
+        var today = new Date();
+        const messageTime = today.getHours() + ':' + today.getMinutes();
+        chat_messages.map((contact) => {
+            if (props.contactUserName === contact.name) {
+                console.log(selectedAudio);
+                setCurrentMessages([...currentMessages, { from: "me", message: URL.createObjectURL(selectedAudio), time: messageTime, type: "record" }])
+                contact.messages.push({ from: "me", message: URL.createObjectURL(selectedAudio), time: messageTime, type: "record" })
+            }
+        })
+        props.setLastMessage("Audio")
+        setSelectedAudio(null);
     }
 
     const enterKey = (e) => {
@@ -178,23 +202,23 @@ export default function ChatMessages(props) {
                         {(() => {
                             if (contact.type === "image") {
                                 return (
-                                    <div className="chat-bubble chat-bubble--right"><img alt="not found" width={"200px"} src={contact.message} onLoad={()=>setLoad(true)}/>
+                                    <div className="chat-bubble chat-bubble--right"><img alt="not found" width={"200px"} src={contact.message} onLoad={() => setLoad(true)} />
                                         <span className="time text-muted small">{contact.time}</span></div>
                                 )
                             } else if (contact.type === "video") {
                                 return (
                                     <div className="chat-bubble chat-bubble--right">
-                                        <video width={"400px"} controls onLoadedData={()=>setLoad(true)} >
-                                            <source src={contact.message} type="video/mp4"/>
+                                        <video width={"400px"} controls onLoadedData={() => setLoad(true)} >
+                                            <source src={contact.message} type="video/mp4" />
                                         </video>
                                         <span className="time text-muted small">{contact.time}</span>
-                                        </div>
+                                    </div>
                                 )
                             }
                             else if (contact.type === "record") {
                                 return (
                                     <div className="chat-bubble chat-bubble--right">
-                                        <audio controlsList="nodownload" controls onLoadedData={()=>setLoad(true)}>
+                                        <audio controlsList="nodownload" controls onLoadedData={() => setLoad(true)}>
                                             <source src={contact.message} type="audio/mpeg" />
                                         </audio>
 
@@ -263,6 +287,10 @@ export default function ChatMessages(props) {
                                         onClick={handleShowRecordModal}>
                                         <img className="image-icon" src="./images/voice.png" alt="image" />
                                     </Dropdown.Item>
+                                    <Dropdown.Item className="item-4"
+                                        onClick={handleShowAudioModal}>
+                                        <img className="image-icon" src="./images/sound.png" alt="image" />
+                                    </Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
 
@@ -282,6 +310,9 @@ export default function ChatMessages(props) {
 
                             <RecordingModal show={showRecordModal} onHide={handleCloseRecordModal} record={selectedRecord}
                                 showRecord={showRecordFunc} setRecord={setSelectedRecord} />
+
+                            <AudioModal show={showAudioModal} onHide={handleCloseAudioModal} audio={selectedAudio}
+                                showAudio={showAudioFunc} setAudio={setSelectedAudio} />
                         </InputGroup>
                     </div>
                 </div>

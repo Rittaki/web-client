@@ -169,16 +169,21 @@
 }
 
 .dropdown-menu .item-1 {
-    animation: growOut 600ms ease-in-out forwards;
+    animation: growOut 700ms ease-in-out forwards;
     transform-origin: top center;
 }
 
 .dropdown-menu .item-2 {
-    animation: growOut 500ms ease-in-out forwards;
+    animation: growOut 600ms ease-in-out forwards;
     transform-origin: top center;
 }
 
 .dropdown-menu .item-3 {
+    animation: growOut 500ms ease-in-out forwards;
+    transform-origin: top center;
+}
+
+.dropdown-menu .item-4 {
     animation: growOut 400ms ease-in-out forwards;
     transform-origin: top center;
 }
