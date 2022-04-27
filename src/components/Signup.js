@@ -58,7 +58,7 @@ function Signup() {
         else if(repeatPassword!=password){
             errors.repeatPassword = "repeated password must be identical to password";
         }
-        if(picture==="blank.png"){
+        if(picture==="./images/blank.png"){
             errors.picture = "picture is required";
         }
         if(invalidImage){
