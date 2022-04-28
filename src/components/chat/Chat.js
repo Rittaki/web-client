@@ -8,11 +8,11 @@ import ChatMessages from './chatMessages/ChatMessages';
 function Chat(props) {
 
     //hardcoded list of contacts
-    const contact_chat = [{user:"Rita",info:[{ name: "Daniel",nickName:"daniel", message: "Don't forget to bring the present!",time:58, image: "./images/cat1.png" },
-    { name: "Moshe",nickName:"moshe", message: "i've waited months to see it!",time:63, image: "./images/cat3.png" },
-    { name: "Sara",nickName:"sara", message: "I have to do homework in Advanced Programming 2",time:128, image: "./images/cat4.png" },
-    { name: "Alice",nickName:"alice", message: "stop texting me",time:1200, image: "./images/cat5.png" },
-    { name: "Bob",nickName:"bob", message: "i heard there are some new flights to Sinai",time:2900, image: "./images/cat6.png" }]},
+    const contact_chat = [{user:"Rita",info:[{ name: "Daniel",nickName:"daniel", message: "Don't forget to bring the present!",time:1, image: "./images/cat1.png" },
+    { name: "Moshe",nickName:"moshe", message: "i've waited months to see it!",time:2, image: "./images/cat3.png" },
+    { name: "Sara",nickName:"sara", message: "I have to do homework in Advanced Programming 2",time:3, image: "./images/cat4.png" },
+    { name: "Alice",nickName:"alice", message: "stop texting me",time:4, image: "./images/cat5.png" },
+    { name: "Bob",nickName:"bob", message: "i heard there are some new flights to Sinai",time:5, image: "./images/cat6.png" }]},
     {user:"Daniel",info:[{ name: "Rita",nickName:"rita", message: "Don't forget to bring the present!",time:1, image: "./images/cat2.png" },
     { name: "Moshe",nickName:"moshe", message: "i've waited months to see it!",time:2, image: "./images/cat3.png" },
     { name: "Sara",nickName:"sara", message: "I have to do homework in Advanced Programming 2", time:3,image: "./images/cat4.png" },
