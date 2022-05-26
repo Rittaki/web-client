@@ -81,4 +81,5 @@ However, if you choose to add users manualy to the entity framework database ple
 2. In the Contact Table the id propery will function as the contact's Username  
 3. In the Contact Table The UserId is required and will function as the UserName of the user which the contact belong to.  
   
-At any time you can head over to the rank system with the link in the bottom of the screen.
+At any time you can head over to the rank system with the link in the bottom of the screen,  
+and then head back to the chat app by clicking on "Go to chat" in the menu on the top left corner.  
