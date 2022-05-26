@@ -1,5 +1,5 @@
 # Chat app Project- Margarita Kilinkarov, Daniel Tal
-
+## You are currently in the repository of the client side  
 Real time Chat app that inculdes both client and server side.   
 The client side consists 3 pages: Login, Signup, Chat.    
 The client side built using react.    
