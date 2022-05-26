@@ -74,4 +74,9 @@ In order to add a user go over to the signup page and sign up.
 After signing up you will be directed directly to the chat page.  
 In order to start a conversion you will need to sign up another user.  
 Then you will be able to add each other and enjoy real time chat.  
-
+However, if you choose to add users manualy to the entity framework database please notice the following instructions:  
+1. In the User Table the id property must be the same as the username property (done automatically when signing up)  
+2. In the Contact Table the id propery will function as the contact's Username  
+3. In the Contact Table The UserId is required and will function as the UserName of the user which the contact belong to.  
+  
+At any time you can head over to the rank system with the link in the bottom of the screen.
