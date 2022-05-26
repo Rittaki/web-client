@@ -1,38 +1,77 @@
 # Chat app Project- Margarita Kilinkarov, Daniel Tal
 
-Chat app that include 3 pages: Login, Signup, Chat.  
-The app was built using react and contains the client side.  
+Real time Chat app that inculdes both client and server side.
+The client side consists 3 pages: Login, Signup, Chat. 
+The client side built using react.
+The server side was build using ASP.NET with entity framework to manage the database of the chat.
+In addition the server includes a rating system that was build with MVC and a service that uses a static list with Dependency Injection.
 
-## Packages used
-- bootstrap
-- react-dom
-- react-router-dom
+## How to run
+The client and server sides need to be run separately.
+First the server needs to be run and then the client.
+When both of them are running the client and server will be able to communicate with one another.
+The client will be able to send and recieve information from the server's database,
+In addition the server will be able to send asynchronous notifications to the client-side with signalR.
 
-## How to run 
+### How to run server
 
-### `git clone`
+#### `git clone`
+
+Clone the repository:
+Open Visual Studio or other ASP.NET IDE and choose "Clone a repository"
+enter the following link:
+https://github.com/DanielTal1/server-try.git
+
+#### `download the needed packages`
+
+Write the following line in the Package Manager Console:  
+npm i  
+This will automatically download the necessary dependencies of the project.
+Then write the following lines int the Package Manager Console:
+Install-Package EntityFramework (if you don't have it already)
+Enable-Migrations(if you didn't use Entity Framework before)
+Update-Database
+This will initialize the database given by entity framework.
+Lastly install the signalR library by:
+right click on the server-try project=> Add => Client-Side Library
+then choose the following:
+Provider: unpkg
+Library: @microsoft/signalr@6.0.6
+mark choose specific files and choose the files:
+signalr.js, signalr.min.js inside the folders: files=>dist=>browser
+This will enable the signalr library in the server.
+
+#### `run the project`
+
+### How to run client
+
+#### `git clone`
 
 Clone the repository:  
-Open the folder you want to locally download the project to.  
+Open your preferred IDE,   
 Write the following line in the terminal:  
-git clone https://github.com/Rittaki/web-client.git  
+git clone https://github.com/Rittaki/Chat-front.git 
 
-### `download the needed packages`
+#### `download the needed packages`
 
-Write the following lines in the terminal:  
+Write the following line in the terminal:  
 npm i  
 This will automatically download the necessary dependencies of the project.  
+In addition write the following line in the terminal:
+npm install @microsoft/signalr
+This will enable signalr in the client.
+
+#### `run project`
+
+Run the project with "npm start"  
 
 
-### `run project`
+## How to use the app
 
-Open the folder: WEB-CLIENT in the terminal with "cd WEB-CLIENT".  
-Run the project from that folder with "npm start"  
+When you first open the app, you will see the login page
+At first the database will be empty of users.
+In order to add a user go over to the signup page and sign up.
+After signing up you will be directed directly to the chat page.
+In order to start a conversion you will need to sign up another user.
+Then you will be able to add each other and enjoy real time chat.
 
-
-## Users
-In order to login with an existing user use one of the following options:  
-- username: Daniel, password:123  
-- username: Rita, password:789  
-
-In order to add a contact to one of these users add the username:"Eden".  
